@@ -62,12 +62,7 @@ const Sidebar = () => {
   };
 
   const canJoinRoom = useMemo(() => {
-    return (
-      !isFetching &&
-      !isConnecting &&
-      !roomsState.isFetching &&
-      roomsState.rooms.length < roomNames.length
-    );
+    return !isFetching && !isConnecting && !roomsState.isFetching;
   }, [isFetching, isConnecting, roomsState]);
 
   const canCreateRoom = useMemo(() => {
