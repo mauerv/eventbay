@@ -28,7 +28,7 @@ const Register = () => {
   return (
     <Container>
       <Title>
-        <FormattedMessage id="register.brand" defaultMessage="Welcome to Emi's Winery" />
+        <FormattedMessage id="register.brand" defaultMessage="Welcome to Emi's Cafe" />
       </Title>
       <Description>
         <FormattedMessage
@@ -42,7 +42,7 @@ const Register = () => {
         onSubmit={handleSubmit}
         submitText={<FormattedMessage id="register.join" defaultMessage="Join" />}
         label="Nick"
-        disabled={false}
+        disabled={!Video.isSupported}
       />
       {!Video.isSupported && (
         <Alert severity="warning">
