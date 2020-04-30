@@ -28,12 +28,12 @@ const Register = () => {
   return (
     <Container>
       <Title>
-        <FormattedMessage id="register.brand" defaultMessage="Kemelpalooza" />
+        <FormattedMessage id="register.brand" defaultMessage="Welcome to Emi's Cafe" />
       </Title>
       <Description>
         <FormattedMessage
           id="register.description"
-          defaultMessage="Welcome to Eze's birthday. Country-lockdown version. Pick a nick and join us!"
+          defaultMessage="A place to talk about crypto, product ideas, entrepreneurship and global trends. Pick a nick and join!"
         />
       </Description>
       <SimpleForm
