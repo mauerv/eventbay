@@ -42,7 +42,7 @@ const Register = () => {
         onSubmit={handleSubmit}
         submitText={<FormattedMessage id="register.join" defaultMessage="Join" />}
         label="Nick"
-        disabled={!Video.isSupported}
+        disabled={false}
       />
       {!Video.isSupported && (
         <Alert severity="warning">
