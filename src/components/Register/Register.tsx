@@ -28,7 +28,7 @@ const Register = () => {
   return (
     <Container>
       <Title>
-        <FormattedMessage id="register.brand" defaultMessage="Welcome to Emi's Bar" />
+        <FormattedMessage id="register.brand" defaultMessage="Welcome to Emi's Winery" />
       </Title>
       <Description>
         <FormattedMessage
