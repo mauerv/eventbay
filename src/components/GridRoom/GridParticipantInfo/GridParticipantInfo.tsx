@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react';
 import { RemoteParticipant, LocalParticipant } from 'twilio-video';
 
-import BandwidthWarning from 'components/BandwidthWarning/BandwidthWarning';
 import NetworkQualityLevel from 'components/NewtorkQualityLevel/NetworkQualityLevel';
 import ParticipantConnectionIndicator from './ParticipantConnectionIndicator/ParticipantConnectionIndicator';
 import {
@@ -15,10 +14,7 @@ import {
 
 import useParticipantNetworkQualityLevel from 'hooks/useParticipantNetworkQualityLevel/useParticipantNetworkQualityLevel';
 import usePublications from 'hooks/usePublications/usePublications';
-import useIsTrackSwitchedOff from 'hooks/useIsTrackSwitchedOff/useIsTrackSwitchedOff';
 import usePublicationIsTrackEnabled from 'hooks/usePublicationIsTrackEnabled/usePublicationIsTrackEnabled';
-import useTrack from 'hooks/useTrack/useTrack';
-import { TrackType } from 'types';
 
 type Props = {
   participant: RemoteParticipant | LocalParticipant;
@@ -37,15 +33,8 @@ export default function ParticipantInfo({ participant, children, gridPosition, f
   const isAudioEnabled = usePublicationIsTrackEnabled(audioPublication);
   const isVideoEnabled = Boolean(videoPublication);
 
-  const videoTrack = useTrack(videoPublication);
-  const isVideoSwitchedOff = useIsTrackSwitchedOff(videoTrack as TrackType);
-
   return (
-    <Container
-      fullWidth={fullWidth}
-      isVideoSwitchedOff={isVideoSwitchedOff}
-      isVideoEnabled={isVideoEnabled}
-    >
+    <Container fullWidth={fullWidth} isVideoEnabled={isVideoEnabled}>
       <div>
         <NetworkInfo>
           <DisplayName>
@@ -59,7 +48,6 @@ export default function ParticipantInfo({ participant, children, gridPosition, f
           {!isVideoEnabled && <StyledVideocamOff fontSize="large" />}
         </OtherInfo>
       </div>
-      {isVideoSwitchedOff && <BandwidthWarning />}
       {children}
     </Container>
   );

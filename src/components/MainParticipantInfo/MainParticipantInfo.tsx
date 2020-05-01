@@ -1,17 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  LocalParticipant,
-  RemoteParticipant,
-  RemoteVideoTrack,
-  LocalVideoTrack,
-} from 'twilio-video';
+import { LocalParticipant, RemoteParticipant } from 'twilio-video';
 
-import BandwidthWarning from 'components/BandwidthWarning/BandwidthWarning';
-import useIsTrackSwitchedOff from 'hooks/useIsTrackSwitchedOff/useIsTrackSwitchedOff';
 import usePublications from 'hooks/usePublications/usePublications';
-import useTrack from 'hooks/useTrack/useTrack';
 import VideocamOff from '@material-ui/icons/VideocamOff';
 
 const useStyles = makeStyles({
@@ -19,11 +11,6 @@ const useStyles = makeStyles({
     position: 'relative',
     display: 'flex',
     alignItems: 'center',
-  },
-  isVideoSwitchedOff: {
-    '& video': {
-      filter: 'blur(4px) grayscale(1) brightness(0.5)',
-    },
   },
   identity: {
     background: 'rgba(0, 0, 0, 0.7)',
@@ -54,26 +41,16 @@ export default function MainParticipantInfo({ participant, children }: MainParti
 
   const publications = usePublications(participant);
   const videoPublication = publications.find(p => p.trackName === 'camera');
-  const screenSharePublication = publications.find(p => p.trackName === 'screen');
   const isVideoEnabled = Boolean(videoPublication);
 
-  const videoTrack = useTrack(screenSharePublication || videoPublication);
-  const isVideoSwitchedOff = useIsTrackSwitchedOff(
-    videoTrack as LocalVideoTrack | RemoteVideoTrack
-  );
-
   return (
-    <div
-      data-cy-main-participant
-      className={clsx(classes.container, { [classes.isVideoSwitchedOff]: isVideoSwitchedOff })}
-    >
+    <div data-cy-main-participant className={clsx(classes.container)}>
       <div className={classes.infoContainer}>
         <h4 className={classes.identity}>
           {participant.identity}
           {!isVideoEnabled && <VideocamOff />}
         </h4>
       </div>
-      {isVideoSwitchedOff && <BandwidthWarning />}
       {children}
     </div>
   );

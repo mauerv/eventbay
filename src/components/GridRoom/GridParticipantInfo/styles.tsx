@@ -5,7 +5,6 @@ import VideocamOff from '@material-ui/icons/VideocamOff';
 
 interface ContainerProps {
   isVideoEnabled: boolean;
-  isVideoSwitchedOff: boolean;
   fullWidth: boolean;
 }
 
@@ -24,8 +23,6 @@ export const Container = styled.div<ContainerProps>`
     height: calc(var(--vh) * 50);
     width: 100%;
     object-fit: cover;
-    filter: ${props =>
-      props.isVideoSwitchedOff ? 'blur(4px) grayscale(1) brightness(0.5)' : 'none'};
   }
 `;
 

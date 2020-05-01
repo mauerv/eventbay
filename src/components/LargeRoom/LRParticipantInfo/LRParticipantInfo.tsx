@@ -1,9 +1,10 @@
 import React, { ReactNode } from 'react';
 import { RemoteParticipant, LocalParticipant } from 'twilio-video';
-import BandwidthWarning from 'components/BandwidthWarning/BandwidthWarning';
+
 import ParticipantConnectionIndicator from './ParticipantConnectionIndicator/ParticipantConnectionIndicator';
 import PinIcon from './PinIcon/PinIcon';
 import ScreenShare from '@material-ui/icons/ScreenShare';
+import { Callback } from 'types';
 import {
   Container,
   MainInfo,
@@ -13,12 +14,8 @@ import {
   StyledMicOff,
   StyledVideocamOff,
 } from './styles';
-
 import usePublications from 'hooks/usePublications/usePublications';
-import useIsTrackSwitchedOff from 'hooks/useIsTrackSwitchedOff/useIsTrackSwitchedOff';
 import usePublicationIsTrackEnabled from 'hooks/usePublicationIsTrackEnabled/usePublicationIsTrackEnabled';
-import useTrack from 'hooks/useTrack/useTrack';
-import { TrackType, Callback } from 'types';
 
 type Props = {
   participant: LocalParticipant | RemoteParticipant;
@@ -37,15 +34,8 @@ export default function ParticipantInfo({ participant, onClick, isSelected, chil
   const isVideoEnabled = Boolean(videoPublication);
   const isScreenShareEnabled = publications.find(p => p.trackName === 'screen');
 
-  const videoTrack = useTrack(videoPublication);
-  const isVideoSwitchedOff = useIsTrackSwitchedOff(videoTrack as TrackType);
-
   return (
-    <Container
-      onClick={onClick}
-      isVideoEnabled={isVideoEnabled}
-      isVideoSwitchedOff={isVideoSwitchedOff}
-    >
+    <Container onClick={onClick} isVideoEnabled={isVideoEnabled}>
       <div>
         <MainInfo>
           <DisplayName>
@@ -60,7 +50,6 @@ export default function ParticipantInfo({ participant, onClick, isSelected, chil
         </MediaInfo>
         <OtherInfo>{isSelected && <PinIcon />}</OtherInfo>
       </div>
-      {isVideoSwitchedOff && <BandwidthWarning />}
       {children}
     </Container>
   );
