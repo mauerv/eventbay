@@ -88,11 +88,11 @@ const Sidebar = () => {
 
   const drawer = (
     <>
-      <Button onClick={() => handleCreateRoom('grid')} disabled={!canCreateRoom}>
-        <FormattedMessage id="sidebar.createSmallBtn" defaultMessage="Create Small Room" />
+      <Button onClick={() => handleCreateRoom('video')} disabled={!canCreateRoom}>
+        <FormattedMessage id="sidebar.createSmallBtn" defaultMessage="Create Video Room" />
       </Button>
-      <Button onClick={() => handleCreateRoom('collaboration')} disabled={!canCreateRoom}>
-        <FormattedMessage id="sidebar.createLargeBtn" defaultMessage="Create Large Room" />
+      <Button onClick={() => handleCreateRoom('audio')} disabled={!canCreateRoom}>
+        <FormattedMessage id="sidebar.createLargeBtn" defaultMessage="Create Audio Room" />
       </Button>
       <RoomList
         rooms={roomsState.rooms}

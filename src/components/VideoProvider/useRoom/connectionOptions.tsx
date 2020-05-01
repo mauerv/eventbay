@@ -10,6 +10,7 @@ export const gridOptions: ConnectOptions = {
       },
     },
   },
+  maxAudioBitrate: 16000,
   networkQuality: { local: 1, remote: 1 },
   preferredVideoCodecs: [{ codec: 'VP8', simulcast: true }],
 };
@@ -25,7 +26,19 @@ export const collaborationOptions: ConnectOptions = {
       },
     },
   },
+  maxAudioBitrate: 16000,
   dominantSpeaker: true,
   networkQuality: { local: 1, remote: 1 },
   preferredVideoCodecs: [{ codec: 'VP8', simulcast: true }],
+};
+
+export const p2pOptions: ConnectOptions = {
+  audio: true,
+  maxAudioBitrate: 16000,
+  video: { height: 720, frameRate: 24, width: 1280 },
+};
+
+export const p2pAudioOptions: ConnectOptions = {
+  audio: true,
+  video: false,
 };

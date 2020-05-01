@@ -54,7 +54,7 @@ export type ErrorCallback = (error: TwilioError) => void;
 
 export type IVideoTrack = LocalVideoTrack | RemoteVideoTrack;
 
-export type RoomType = 'grid' | 'collaboration' | 'presentation';
+export type RoomType = 'video' | 'audio';
 
 export type TrackType = RemoteVideoTrack | LocalVideoTrack | undefined | null;
 

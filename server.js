@@ -56,8 +56,8 @@ app.get('/api/rooms', async (req, res) => {
 
 app.post('/api/rooms', async (req, res) => {
   const { roomName, roomType } = req.body;
-  const maxParticipants = roomType === 'grid' ? 4 : 8;
-  const type = roomType === 'grid' ? 'group-small' : 'group';
+  const maxParticipants = roomType === 'video' ? 4 : 10;
+  const type = 'peer-to-peer';
 
   let callbackUrl = `${process.env.API_TWILIO_CALLBACK_URL}/api/callback`;
 

@@ -7,7 +7,7 @@ import Sidebar from 'components/Sidebar/Sidebar';
 import Controls from 'components/Controls/Controls';
 import LocalVideoPreview from 'components/LocalVideoPreview/LocalVideoPreview';
 import ReconnectingNotification from 'components/ReconnectingNotification/ReconnectingNotification';
-import LargeRoom from 'components/LargeRoom/LargeRoom';
+import AudioRoom from 'components/AudioRoom/AudioRoom';
 import GridRoom from 'components/GridRoom/GridRoom';
 import RoomsProvider from 'components/RoomsProvider/RoomsProvider';
 import MediaDevicesDialog from 'components/MediaDevicesDialog/MediaDevicesDialog';
@@ -39,10 +39,10 @@ const App = () => {
     content = <LocalVideoPreview />;
   } else if (roomState === 'disconnected') {
     content = <div />;
-  } else if (roomType === 'grid') {
+  } else if (roomType === 'video') {
     content = <GridRoom />;
   } else {
-    content = <LargeRoom />;
+    content = <AudioRoom />;
   }
 
   return (
