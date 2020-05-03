@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { LocalAudioTrack, RemoteAudioTrack } from 'twilio-video';
 import useInterval from 'use-interval';
+import useAudioContext from 'hooks/useAudioContext/useAudioContext';
 
 export default function useAudioAnalyser(track: LocalAudioTrack | RemoteAudioTrack) {
   const [audioData, setAudioData] = useState(new Uint8Array(0));
-  const [audioContext] = useState(new (window.AudioContext || window.webkitAudioContext)());
+  const { audioContext } = useAudioContext();
   const [analyser] = useState(audioContext.createAnalyser());
   let buffer = new Uint8Array(analyser.frequencyBinCount);
 

@@ -12,6 +12,7 @@ import GridRoom from 'components/GridRoom/GridRoom';
 import RoomsProvider from 'components/RoomsProvider/RoomsProvider';
 import MediaDevicesDialog from 'components/MediaDevicesDialog/MediaDevicesDialog';
 import ChatProvider from 'components/ChatProvider/ChatProvider';
+import AudioContextProvider from 'components/AudioContextProvider/AudioContextProvider';
 
 import useRoomState from 'hooks/useRoomState/useRoomState';
 import useVideoContext from 'hooks/useVideoContext/useVideoContext';
@@ -42,7 +43,11 @@ const App = () => {
   } else if (roomType === 'video') {
     content = <GridRoom />;
   } else {
-    content = <AudioRoom />;
+    content = (
+      <AudioContextProvider>
+        <AudioRoom />
+      </AudioContextProvider>
+    );
   }
 
   return (
