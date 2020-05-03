@@ -6,6 +6,7 @@ import Chat from 'components/Chat/Chat';
 import Hidden from '@material-ui/core/Hidden';
 import ToggleFullScreenButton from 'components/ToggleFullScreenButton/ToggleFullScreenButton';
 import AudioParticipant from './AudioParticipant/AudioParticipant';
+import { Container } from './styles';
 
 export default function AudioRoom() {
   const {
@@ -14,7 +15,7 @@ export default function AudioRoom() {
   const participants = useParticipants();
 
   return (
-    <div>
+    <Container>
       <Hidden smDown>
         <ToggleFullScreenButton />
       </Hidden>
@@ -22,6 +23,6 @@ export default function AudioRoom() {
         <AudioParticipant key={participant.sid} participant={participant} />
       ))}
       <Chat />
-    </div>
+    </Container>
   );
 }

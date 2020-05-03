@@ -1,18 +1,17 @@
 import React from 'react';
 import { LocalParticipant, RemoteParticipant } from 'twilio-video';
 
-import AudioParticipantTracks from '../AudioParticipantTracks/AudioParticipantTracks';
+import AudioParticipantPublication from '../AudioParticipantPublication/AudioParticipantPublication';
+import AudioParticipantInfo from '../AudioParticipantInfo/AudioParticipantInfo';
 
 type Props = {
   participant: LocalParticipant | RemoteParticipant;
-  disableAudio?: boolean;
 };
 
-export default function AudioParticipant({ participant, disableAudio }: Props) {
+export default function AudioParticipant({ participant }: Props) {
   return (
-    <>
-      <h2>{participant.identity}</h2>
-      <AudioParticipantTracks participant={participant} disableAudio={disableAudio} />
-    </>
+    <AudioParticipantInfo participant={participant}>
+      <AudioParticipantPublication participant={participant} />
+    </AudioParticipantInfo>
   );
 }

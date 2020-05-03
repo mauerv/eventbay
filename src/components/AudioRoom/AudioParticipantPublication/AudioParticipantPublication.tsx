@@ -1,47 +1,25 @@
 import React from 'react';
-import styled from 'styled-components';
-
-import useTrack from 'hooks/useTrack/useTrack';
-import useIsParticipantSpeaking from 'hooks/useIsParticipantSpeaking/useIsParticipantSpeaking';
-import AudioTrack from 'components/AudioTrack/AudioTrack';
 import {
-  LocalTrackPublication,
-  RemoteTrackPublication,
+  LocalParticipant,
+  RemoteParticipant,
   LocalAudioTrack,
   RemoteAudioTrack,
 } from 'twilio-video';
 
+import AudioTrack from 'components/AudioTrack/AudioTrack';
+import usePublications from 'hooks/usePublications/usePublications';
+import useTrack from 'hooks/useTrack/useTrack';
+
 type Props = {
-  publication: LocalTrackPublication | RemoteTrackPublication;
-  isLocal: boolean;
-  disableAudio?: boolean;
+  participant: LocalParticipant | RemoteParticipant;
 };
 
-const Container = styled.div`
-  width: 200px;
-  height: 200px;
-`;
-
-export default function AudioPublication({ disableAudio, isLocal, publication }: Props) {
-  const track = useTrack(publication) as LocalAudioTrack | RemoteAudioTrack;
-  const isParticipantSpeaking = useIsParticipantSpeaking(track);
+export default function AudioParticipantTracks({ participant }: Props) {
+  const publications = usePublications(participant);
+  const audioPublication = publications.find(publication => publication.kind === 'audio');
+  const track = useTrack(audioPublication) as LocalAudioTrack | RemoteAudioTrack;
 
   if (!track) return null;
 
-  let content;
-
-  switch (track.kind) {
-    case 'audio':
-      content = disableAudio ? null : <AudioTrack track={track} />;
-      break;
-    default:
-      content = null;
-  }
-
-  return (
-    <Container>
-      {isParticipantSpeaking ? 'speaking' : 'silent'}
-      {content}
-    </Container>
-  );
+  return <AudioTrack track={track} />;
 }
