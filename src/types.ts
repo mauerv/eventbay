@@ -46,6 +46,10 @@ declare global {
   interface MediaDevices {
     getDisplayMedia(constraints: MediaStreamConstraints): Promise<MediaStream>;
   }
+  interface Window {
+    webkitAudioContext: typeof AudioContext;
+    audioTrack: any;
+  }
 }
 
 export type Callback = (...args: any[]) => void;

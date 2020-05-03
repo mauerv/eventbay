@@ -1,11 +1,9 @@
 import React from 'react';
-import { LocalVideoTrack, LocalAudioTrack } from 'twilio-video';
+import { LocalVideoTrack } from 'twilio-video';
 import { FormattedMessage } from 'react-intl';
 
 import useVideoContext from 'hooks/useVideoContext/useVideoContext';
-import useIsSpeaking from 'hooks/useIsSpeaking/useIsSpeaking';
 import ToggleSettings from 'components/ToggleSettings/ToggleSettings';
-
 import {
   Container,
   Title,
@@ -20,13 +18,10 @@ import {
 export default function LocalVideoPreview() {
   const { localTracks } = useVideoContext();
   const videoTrack = localTracks.find(track => track.name === 'camera') as LocalVideoTrack;
-  const audioTrack = localTracks.find(track => track.kind === 'audio') as LocalAudioTrack;
-  const isSpeaking = useIsSpeaking(audioTrack);
 
   return (
     <Container>
       <Title>
-        <p>{isSpeaking ? 'Speaking' : 'Not Speaking'}</p>
         <FormattedMessage id="preview.title" defaultMessage="Video Preview" />
       </Title>
       <Subtitle>

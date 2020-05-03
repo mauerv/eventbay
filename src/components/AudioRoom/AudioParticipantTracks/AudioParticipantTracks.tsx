@@ -1,5 +1,5 @@
 import React from 'react';
-import { LocalParticipant, RemoteParticipant, Track } from 'twilio-video';
+import { LocalParticipant, RemoteParticipant } from 'twilio-video';
 
 import AudioParticipantPublication from '../AudioParticipantPublication/AudioParticipantPublication';
 import usePublications from 'hooks/usePublications/usePublications';
@@ -13,18 +13,19 @@ type Props = {
 export default function AudioParticipantTracks({ participant, disableAudio }: Props) {
   const { room } = useVideoContext();
   const publications = usePublications(participant);
+  const audioPublication = publications.find(publication => publication.kind === 'audio');
+
   const isLocal = participant === room.localParticipant;
 
   return (
     <>
-      {publications.map(publication => (
+      {audioPublication ? (
         <AudioParticipantPublication
-          key={publication.kind}
-          publication={publication}
+          publication={audioPublication}
           isLocal={isLocal}
           disableAudio={disableAudio}
         />
-      ))}
+      ) : null}
     </>
   );
 }
