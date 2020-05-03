@@ -18,7 +18,6 @@ import {
 export default function LocalVideoPreview() {
   const { localTracks } = useVideoContext();
   const videoTrack = localTracks.find(track => track.name === 'camera') as LocalVideoTrack;
-
   return (
     <Container>
       <Title>

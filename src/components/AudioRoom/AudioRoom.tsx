@@ -18,7 +18,7 @@ export default function AudioRoom() {
       <Hidden smDown>
         <ToggleFullScreenButton />
       </Hidden>
-      {[localParticipant, ...participants].map((participant, index) => (
+      {[localParticipant, ...participants].map(participant => (
         <AudioParticipant key={participant.sid} participant={participant} />
       ))}
       <Chat />

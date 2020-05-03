@@ -1,29 +1,26 @@
 import { useState, useEffect } from 'react';
-import { AudioTrack } from 'twilio-video';
+import { LocalAudioTrack, RemoteAudioTrack } from 'twilio-video';
+import useInterval from 'use-interval';
 
-export default function useAudioAnalyser(track: AudioTrack) {
+export default function useAudioAnalyser(track: LocalAudioTrack | RemoteAudioTrack) {
   const [audioData, setAudioData] = useState(new Uint8Array(0));
+  const [audioContext] = useState(new (window.AudioContext || window.webkitAudioContext)());
+  const [analyser] = useState(audioContext.createAnalyser());
+  let buffer = new Uint8Array(analyser.frequencyBinCount);
 
   useEffect(() => {
     if (track) {
-      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      const analyser = audioContext.createAnalyser();
-      const dataArray = new Uint8Array(analyser.frequencyBinCount);
       const tempEl = track.attach();
       const stream = tempEl.srcObject as MediaStream;
       const source = audioContext.createMediaStreamSource(stream);
       source.connect(analyser);
-
-      const updateAudioData = setInterval(() => {
-        analyser.getByteTimeDomainData(dataArray);
-        setAudioData(dataArray);
-      }, 500);
-
-      return () => {
-        clearInterval(updateAudioData);
-      };
     }
-  }, [track]);
+  }, [track, analyser, audioContext]);
+
+  useInterval(() => {
+    analyser.getByteTimeDomainData(buffer);
+    setAudioData(buffer);
+  }, 500);
 
   return audioData;
 }

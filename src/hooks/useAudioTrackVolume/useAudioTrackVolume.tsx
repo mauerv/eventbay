@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { AudioTrack } from 'twilio-video';
+import { LocalAudioTrack, RemoteAudioTrack } from 'twilio-video';
 
 import useAudioAnalyser from 'hooks/useAudioAnalyser/useAudioAnalyser';
 
-export default function useAudioTrackVolume(track: AudioTrack) {
+export default function useAudioTrackVolume(track: LocalAudioTrack | RemoteAudioTrack) {
   const [volume, setVolume] = useState(0);
   const audioData = useAudioAnalyser(track);
 

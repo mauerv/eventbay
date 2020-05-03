@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import useIsParticipantSpeaking from 'hooks/useIsParticipantSpeaking/useIsParticipantSpeaking';
 import useTrack from 'hooks/useTrack/useTrack';
+import useIsParticipantSpeaking from 'hooks/useIsParticipantSpeaking/useIsParticipantSpeaking';
 import AudioTrack from 'components/AudioTrack/AudioTrack';
 import {
   LocalTrackPublication,
@@ -17,19 +17,14 @@ type Props = {
   disableAudio?: boolean;
 };
 
-type ContainerProps = {
-  isSpeaking: boolean;
-};
-
-const Container = styled.div<ContainerProps>`
-  background-color: ${props => (props.isSpeaking ? 'red' : 'green')};
+const Container = styled.div`
   width: 200px;
   height: 200px;
 `;
 
 export default function AudioPublication({ disableAudio, isLocal, publication }: Props) {
   const track = useTrack(publication) as LocalAudioTrack | RemoteAudioTrack;
-  const isSpeaking = useIsParticipantSpeaking(track);
+  const isParticipantSpeaking = useIsParticipantSpeaking(track);
 
   if (!track) return null;
 
@@ -43,5 +38,10 @@ export default function AudioPublication({ disableAudio, isLocal, publication }:
       content = null;
   }
 
-  return <Container isSpeaking={isSpeaking}>{content}</Container>;
+  return (
+    <Container>
+      {isParticipantSpeaking ? 'speaking' : 'silent'}
+      {content}
+    </Container>
+  );
 }

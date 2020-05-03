@@ -13,7 +13,7 @@ describe('the useAudioTrackVolume hook', () => {
     expect(result.current).toBe(0);
   });
   it('should return the correct maximum volume', () => {
-    mockUseAudioAnalyser.mockReturnValue([0, 255]);
+    mockUseAudioAnalyser.mockReturnValue([0, 160, 25, 255]);
     const { result } = renderHook(useAudioTrackVolume);
     expect(result.current).toBe(1);
   });

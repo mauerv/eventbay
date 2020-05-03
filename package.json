@@ -48,7 +48,8 @@
     "styled-components": "^5.0.1",
     "twilio": "^3.39.3",
     "twilio-video": "^2.3.0",
-    "typescript": "^3.7.5"
+    "typescript": "^3.7.5",
+    "use-interval": "^1.2.1"
   },
   "devDependencies": {
     "@hot-loader/react-dom": "^16.13.0",
