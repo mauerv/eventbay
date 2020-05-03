@@ -8,16 +8,16 @@ export default function useAudioTrackVolume(track: AudioTrack) {
   const audioData = useAudioAnalyser(track);
 
   useEffect(() => {
-    var min = 128;
-    var max = 128;
+    let min = 128;
+    let max = 128;
 
-    for (var i = 0; i < audioData.length; i++) {
-      var sample = audioData[i];
+    for (let i = 0; i < audioData.length; i++) {
+      const sample = audioData[i];
       if (sample < min) min = sample;
       else if (sample > max) max = sample;
     }
-
-    setVolume((max - min) / 255);
+    const difference = max - min;
+    setVolume(difference / 255);
   }, [audioData]);
 
   return volume;
