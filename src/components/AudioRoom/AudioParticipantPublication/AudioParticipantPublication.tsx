@@ -42,7 +42,6 @@ export default function AudioPublication({ disableAudio, isLocal, publication }:
     default:
       content = null;
   }
-  console.log(isSpeaking, 'Oh');
 
   return <Container isSpeaking={isSpeaking}>{content}</Container>;
 }

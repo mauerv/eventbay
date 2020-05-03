@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
-import { LocalAudioTrack, RemoteAudioTrack } from 'twilio-video';
+import { AudioTrack } from 'twilio-video';
 
-type trackType = LocalAudioTrack | RemoteAudioTrack;
-
-export default function useAudioAnalyser(track: trackType) {
+export default function useAudioAnalyser(track: AudioTrack) {
   const [audioData, setAudioData] = useState(new Uint8Array(0));
 
   useEffect(() => {
@@ -16,10 +14,14 @@ export default function useAudioAnalyser(track: trackType) {
       const source = audioContext.createMediaStreamSource(stream);
       source.connect(analyser);
 
-      setInterval(() => {
+      const updateAudioData = setInterval(() => {
         analyser.getByteTimeDomainData(dataArray);
         setAudioData(dataArray);
       }, 500);
+
+      return () => {
+        clearInterval(updateAudioData);
+      };
     }
   }, [track]);
 

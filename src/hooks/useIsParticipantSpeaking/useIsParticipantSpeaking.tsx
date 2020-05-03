@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import useAudioTrackVolume from 'hooks/useAudioTrackVolume/useAudioTrackVolume';
-import { LocalAudioTrack, RemoteAudioTrack } from 'twilio-video';
+import { AudioTrack } from 'twilio-video';
 
-export default function useIsParticipantSpeaking(track: LocalAudioTrack | RemoteAudioTrack) {
+export default function useIsParticipantSpeaking(track: AudioTrack) {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const volume = useAudioTrackVolume(track);
-  const min = 0.05;
+  const threshold = 0.05;
 
   useEffect(() => {
-    setIsSpeaking(volume > min);
+    setIsSpeaking(volume > threshold);
   }, [volume]);
 
   return isSpeaking;
