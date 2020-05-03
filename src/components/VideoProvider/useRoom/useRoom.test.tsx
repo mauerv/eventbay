@@ -7,7 +7,7 @@ import Video, { LocalTrack } from 'twilio-video';
 const mockVideoConnect = Video.connect as jest.Mock<any>;
 
 describe('the useRoom hook', () => {
-  const roomType = 'grid';
+  const roomType = 'video';
 
   beforeEach(jest.clearAllMocks);
   afterEach(() => mockRoom.removeAllListeners());
@@ -30,6 +30,7 @@ describe('the useRoom hook', () => {
     expect(result.current.isConnecting).toBe(false);
   });
 
+  /* TODO: Current experiment only runs on grid mode. Generalize later.
   it('should publish video tracks with low priority', async () => {
     const { result, waitForNextUpdate } = renderHook(() =>
       useRoom([{ kind: 'video' } as LocalTrack, { kind: 'audio' } as LocalTrack], () => {})
@@ -46,7 +47,8 @@ describe('the useRoom hook', () => {
       { kind: 'audio' },
       { priority: 'standard' }
     );
-  });
+	});
+	*/
 
   it('should publish video tracks that are supplied in a rerender', async () => {
     const { result, rerender, waitForNextUpdate } = renderHook(
@@ -60,10 +62,7 @@ describe('the useRoom hook', () => {
       result.current.connect('token', roomType);
     });
     await waitForNextUpdate();
-    expect(mockRoom.localParticipant.publishTrack).toHaveBeenCalledWith(
-      { kind: 'video' },
-      { priority: 'low' }
-    );
+    expect(mockRoom.localParticipant.publishTrack).toHaveBeenCalledWith({ kind: 'video' });
   });
 
   it('should return a room after connecting to a room', async () => {

@@ -50,6 +50,14 @@ describe('the Controls component', () => {
       expect(wrapper.find('ToggleChatButton').exists()).toBe(true);
     });
 
+    it('should not render the ToggleScreenShare and ToggleVideo button when connected to an audio room', () => {
+      mockUseRoomState.mockImplementation(() => 'connected');
+      mockUseVideoContext.mockImplementationOnce(() => ({ roomType: 'audio' }));
+      const wrapper = shallow(<Controls />);
+      expect(wrapper.find('ToggleScreenShareButton').exists()).toBe(false);
+      expect(wrapper.find('ToggleVideoButton').exists()).toBe(false);
+    });
+
     it('should disable the ToggleAudio, ToggleVideo, and ToggleScreenShare buttons when reconnecting to a room', () => {
       mockUseRoomState.mockImplementation(() => 'reconnecting');
       const wrapper = shallow(<Controls />);

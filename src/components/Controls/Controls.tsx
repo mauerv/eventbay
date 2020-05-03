@@ -46,7 +46,7 @@ export default function Controls() {
   return (
     <div className={clsx(classes.container, { showControls })}>
       <ToggleAudioButton disabled={isReconnecting} />
-      <ToggleVideoButton disabled={isReconnecting} />
+      {roomType !== 'audio' && <ToggleVideoButton disabled={isReconnecting} />}
       {roomState !== 'disconnected' && (
         <>
           {roomType === 'collaboration' && <ToggleScreenShareButton disabled={isReconnecting} />}
