@@ -17,11 +17,12 @@ export const Fab = styled(MUIFab)`
 `;
 
 export default function EndCallButton() {
-  const { room } = useVideoContext();
+  const { room, setRoomType } = useVideoContext();
   const { logEvent } = useAnalytics();
 
   const handleClick = () => {
     room.disconnect();
+    setRoomType(null);
 
     logEvent('ROOM_LEAVE');
   };
