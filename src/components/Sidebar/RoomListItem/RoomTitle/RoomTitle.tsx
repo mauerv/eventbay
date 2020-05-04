@@ -1,10 +1,9 @@
 import React, { useMemo } from 'react';
 
 import { Callback } from 'types';
-
 import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
-import ParticipantNumber from '../../ParticipantNumber/ParticipantNumber';
+import CapacityIndicator from 'components/CapacityIndicator/CapacityIndicator';
 import { RoomTitleText } from './styles';
 
 type Props = {
@@ -44,7 +43,7 @@ const RoomTitle = ({
     >
       <RoomTitleText disableTypography>
         <Typography color="primary">{roomName}</Typography>
-        <ParticipantNumber max={maxParticipants} current={currentParticipants} />
+        <CapacityIndicator max={maxParticipants} current={currentParticipants} />
       </RoomTitleText>
     </ListItem>
   );
