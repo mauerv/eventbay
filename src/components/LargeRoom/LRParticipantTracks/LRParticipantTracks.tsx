@@ -1,6 +1,6 @@
 import React from 'react';
 import { LocalParticipant, RemoteParticipant, Track } from 'twilio-video';
-import LRPublication from '../LRPublication/LRPublication';
+import Publication from 'components/Publication/Publication';
 import usePublications from 'hooks/usePublications/usePublications';
 import useVideoContext from 'hooks/useVideoContext/useVideoContext';
 
@@ -40,10 +40,9 @@ export default function ParticipantTracks({
   return (
     <>
       {filteredPublications.map(publication => (
-        <LRPublication
+        <Publication
           key={publication.kind}
           publication={publication}
-          participant={participant}
           isLocal={isLocal}
           disableAudio={disableAudio}
           videoPriority={videoPriority}

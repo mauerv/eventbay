@@ -12,12 +12,7 @@ type Props = {
   videoPriority?: Track.Priority;
 };
 
-export default function GridPublication({
-  publication,
-  isLocal,
-  disableAudio,
-  videoPriority,
-}: Props) {
+export default function Publication({ publication, isLocal, disableAudio, videoPriority }: Props) {
   const track = useTrack(publication);
 
   if (!track) return null;

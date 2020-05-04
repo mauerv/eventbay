@@ -1,7 +1,7 @@
 import React from 'react';
 import { LocalParticipant, RemoteParticipant, Track } from 'twilio-video';
 
-import GridPublication from '../GridPublication/GridPublication';
+import Publication from 'components/Publication/Publication';
 import usePublications from 'hooks/usePublications/usePublications';
 import useVideoContext from 'hooks/useVideoContext/useVideoContext';
 
@@ -33,7 +33,7 @@ export default function GridParticipantTracks({
   return (
     <>
       {filteredPublications.map(publication => (
-        <GridPublication
+        <Publication
           key={publication.kind}
           publication={publication}
           isLocal={isLocal}
