@@ -1,6 +1,20 @@
 import { ConnectOptions } from 'twilio-video';
+import { RoomType } from 'types';
 
-export const gridOptions: ConnectOptions = {
+export const selectConnectionOptions = (roomType: RoomType) => {
+  switch (roomType) {
+    case 'video-group-large':
+      return largeGroupOptions;
+    case 'video-group-small':
+      return smallGroupOptions;
+    case 'video-p2p':
+      return p2pVideoOptions;
+    case 'audio-p2p':
+      return p2pAudioOptions;
+  }
+};
+
+export const smallGroupOptions: ConnectOptions = {
   bandwidthProfile: {
     video: {
       renderDimensions: {
@@ -15,7 +29,7 @@ export const gridOptions: ConnectOptions = {
   preferredVideoCodecs: [{ codec: 'VP8', simulcast: true }],
 };
 
-export const collaborationOptions: ConnectOptions = {
+export const largeGroupOptions: ConnectOptions = {
   bandwidthProfile: {
     video: {
       mode: 'collaboration',
@@ -32,7 +46,7 @@ export const collaborationOptions: ConnectOptions = {
   preferredVideoCodecs: [{ codec: 'VP8', simulcast: true }],
 };
 
-export const p2pOptions: ConnectOptions = {
+export const p2pVideoOptions: ConnectOptions = {
   audio: true,
   maxAudioBitrate: 16000,
   video: { height: 720, frameRate: 24, width: 1280 },

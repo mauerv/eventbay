@@ -9,6 +9,7 @@ import LocalVideoPreview from 'components/LocalVideoPreview/LocalVideoPreview';
 import ReconnectingNotification from 'components/ReconnectingNotification/ReconnectingNotification';
 import AudioRoom from 'components/AudioRoom/AudioRoom';
 import GridRoom from 'components/GridRoom/GridRoom';
+import LargeRoom from 'components/LargeRoom/LargeRoom';
 import RoomsProvider from 'components/RoomsProvider/RoomsProvider';
 import MediaDevicesDialog from 'components/MediaDevicesDialog/MediaDevicesDialog';
 import ChatProvider from 'components/ChatProvider/ChatProvider';
@@ -39,9 +40,11 @@ const App = () => {
   if (roomState === 'disconnected' && !isConnecting) {
     content = <LocalVideoPreview />;
   } else if (roomState === 'disconnected') {
-    content = <div />;
-  } else if (roomType === 'video') {
+    content = null;
+  } else if (roomType === 'video-p2p' || roomType === 'video-group-small') {
     content = <GridRoom />;
+  } else if (roomType === 'video-group-large') {
+    content = <LargeRoom />;
   } else {
     content = (
       <AudioContextProvider>

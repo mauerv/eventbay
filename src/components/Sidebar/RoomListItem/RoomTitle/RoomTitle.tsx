@@ -30,7 +30,9 @@ const RoomTitle = ({
     maxParticipants,
   ]);
 
-  const roomType = useMemo(() => (maxParticipants > 4 ? 'audio' : 'video'), [maxParticipants]);
+  const roomType = useMemo(() => {
+    return maxParticipants > 4 ? 'audio-p2p' : 'video-p2p';
+  }, [maxParticipants]);
 
   return (
     <ListItem

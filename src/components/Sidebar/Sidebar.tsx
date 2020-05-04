@@ -16,6 +16,7 @@ import HelpDialog from 'components/HelpDialog/HelpDialog';
 import Collapse from '@material-ui/core/Collapse';
 import Hidden from '@material-ui/core/Hidden';
 import { Button, MobileDrawer, DesktopDrawer, MenuButton, StickyBottomContainer } from './styles';
+import RoomCreateButtons from './RoomCreateButtons/RoomCreateButtons';
 
 const Sidebar = () => {
   const { nick, setNick, getToken, isFetching } = useAppState();
@@ -88,12 +89,7 @@ const Sidebar = () => {
 
   const drawer = (
     <>
-      <Button onClick={() => handleCreateRoom('video')} disabled={!canCreateRoom}>
-        <FormattedMessage id="sidebar.createSmallBtn" defaultMessage="Create Video Room" />
-      </Button>
-      <Button onClick={() => handleCreateRoom('audio')} disabled={!canCreateRoom}>
-        <FormattedMessage id="sidebar.createLargeBtn" defaultMessage="Create Audio Room" />
-      </Button>
+      <RoomCreateButtons handleCreateRoom={handleCreateRoom} canCreateRoom={canCreateRoom} />
       <RoomList
         rooms={roomsState.rooms}
         onRoomClick={handleRoomClick}

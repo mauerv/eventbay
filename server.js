@@ -8,6 +8,7 @@ const AccessToken = twilio.jwt.AccessToken;
 const VideoGrant = AccessToken.VideoGrant;
 const bodyParser = require('body-parser');
 const secure = require('ssl-express-www');
+const getRoomOptions = require('./server/twilioRoomOptions');
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
@@ -56,8 +57,7 @@ app.get('/api/rooms', async (req, res) => {
 
 app.post('/api/rooms', async (req, res) => {
   const { roomName, roomType } = req.body;
-  const maxParticipants = roomType === 'video' ? 4 : 10;
-  const type = 'peer-to-peer';
+  const { type, maxParticipants } = getRoomOptions(roomType);
 
   let callbackUrl = `${process.env.API_TWILIO_CALLBACK_URL}/api/callback`;
 

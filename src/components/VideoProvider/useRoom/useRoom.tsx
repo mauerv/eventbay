@@ -2,7 +2,7 @@ import EventEmitter from 'events';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Video, { LocalTrack, Room } from 'twilio-video';
 import { Callback } from 'types';
-import { p2pOptions, p2pAudioOptions } from './connectionOptions';
+import { selectConnectionOptions } from './connectionOptions';
 
 export default function useRoom(localTracks: LocalTrack[], onError: Callback) {
   const [room, setRoom] = useState<Room>(new EventEmitter() as Room);
@@ -27,7 +27,7 @@ export default function useRoom(localTracks: LocalTrack[], onError: Callback) {
   const connect = useCallback(
     (token, roomType) => {
       setIsConnecting(true);
-      const options = roomType === 'video' ? p2pOptions : p2pAudioOptions;
+      const options = selectConnectionOptions(roomType);
 
       return Video.connect(token, { ...options, tracks: localTracksRef.current }).then(
         newRoom => {
@@ -48,8 +48,12 @@ export default function useRoom(localTracks: LocalTrack[], onError: Callback) {
             if (track.kind === 'audio') {
               newRoom.localParticipant.publishTrack(track);
             }
-            if (track.kind === 'video' && roomType === 'video') {
-              newRoom.localParticipant.publishTrack(track);
+            if (track.kind === 'video') {
+              if (roomType === 'video-group-large') {
+                newRoom.localParticipant.publishTrack(track, { priority: 'low' });
+              } else if (roomType === 'video-group-small' || roomType === 'video-p2p') {
+                newRoom.localParticipant.publishTrack(track);
+              }
             }
           });
 
