@@ -1,7 +1,7 @@
 import React from 'react';
 import { LocalParticipant, RemoteParticipant } from 'twilio-video';
 
-import AudioParticipantPublication from '../AudioParticipantPublication/AudioParticipantPublication';
+import AudioParticipantTrack from '../AudioParticipantTrack/AudioParticipantTrack';
 import AudioParticipantInfo from '../AudioParticipantInfo/AudioParticipantInfo';
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 export default function AudioParticipant({ participant }: Props) {
   return (
     <AudioParticipantInfo participant={participant}>
-      <AudioParticipantPublication participant={participant} />
+      <AudioParticipantTrack participant={participant} />
     </AudioParticipantInfo>
   );
 }
