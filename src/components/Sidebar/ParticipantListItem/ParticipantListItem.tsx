@@ -11,16 +11,14 @@ type Props = {
   participant: Participant;
 };
 
-const ParticipantListItem = ({ participant }: Props) => {
-  return (
-    <ListItem component="div" data-test="participant-list-item">
-      <ListItemIcon>
-        <PersonIcon />
-      </ListItemIcon>
-      <ListItemText>{participant.identity}</ListItemText>
-    </ListItem>
-  );
-};
+const ParticipantListItem = ({ participant }: Props) => (
+  <ListItem component="div" data-test="participant-list-item">
+    <ListItemIcon>
+      <PersonIcon />
+    </ListItemIcon>
+    <ListItemText>{participant.identity}</ListItemText>
+  </ListItem>
+);
 
 ParticipantListItem.propTypes = {
   participant: PropTypes.shape({

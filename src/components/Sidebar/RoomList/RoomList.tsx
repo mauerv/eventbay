@@ -3,7 +3,6 @@ import { RoomInstance } from 'twilio';
 
 import useFormatMessage from 'hooks/useFormatMessage/useFormatMessage';
 import { Callback } from 'types';
-
 import RoomListItem from '../RoomListItem/RoomListItem';
 import { List } from './styles';
 
@@ -14,7 +13,7 @@ type Props = {
   canJoinRoom: boolean;
 };
 
-const RoomList = ({ rooms, onRoomClick, activeRoom, canJoinRoom }: Props) => {
+export default function RoomList({ rooms, onRoomClick, activeRoom, canJoinRoom }: Props) {
   const headerText = useFormatMessage({ id: 'roomlist.headerText', defaultMessage: 'Open Rooms' });
 
   return (
@@ -31,6 +30,4 @@ const RoomList = ({ rooms, onRoomClick, activeRoom, canJoinRoom }: Props) => {
         ))}
     </List>
   );
-};
-
-export default RoomList;
+}
