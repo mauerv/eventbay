@@ -10,6 +10,7 @@ import roomNames, { getRoomName } from 'util/roomNames';
 import useRoomState from 'hooks/useRoomState/useRoomState';
 import useRooms from 'components/RoomsProvider/useRooms/useRooms';
 import useAnalytics from 'hooks/useAnalytics/useAnalytics';
+import useLeaveLobby from 'hooks/useLeaveLobby/useLeaveLobby';
 
 import RoomList from './RoomList/RoomList';
 import HelpDialog from 'components/HelpDialog/HelpDialog';
@@ -19,12 +20,13 @@ import { Button, MobileDrawer, DesktopDrawer, MenuButton, StickyBottomContainer 
 import RoomCreateButtons from './RoomCreateButtons/RoomCreateButtons';
 
 const Sidebar = () => {
-  const { nick, setNick, getToken, isFetching } = useAppState();
-  const { isConnecting, connect, room, setRoomType, stopLocalTracks } = useVideoContext();
+  const { nick, getToken, isFetching } = useAppState();
+  const { isConnecting, connect, room, setRoomType } = useVideoContext();
   const { showMobileUi, showMobileSidebar, toggleMobileSidebar, toggleHelpDialog } = useUIState();
   const { roomsState } = useRooms();
   const roomState = useRoomState();
   const { logEvent } = useAnalytics();
+  const leaveLobby = useLeaveLobby();
 
   const handleCreateRoom = async (roomType: RoomType) => {
     if (!canCreateRoom) return;
@@ -70,17 +72,6 @@ const Sidebar = () => {
     return canJoinRoom && roomsState.rooms.length < roomNames.length;
   }, [canJoinRoom, roomsState]);
 
-  const handleLeaveLobby = () => {
-    setNick('');
-    stopLocalTracks();
-    if (room.sid) {
-      room.disconnect();
-    }
-
-    logEvent('LOBBY_LEAVE');
-    return <Redirect to="/" />;
-  };
-
   const handleSupportRequest = () => {
     toggleHelpDialog();
 
@@ -101,7 +92,7 @@ const Sidebar = () => {
         <Button onClick={handleSupportRequest} color="secondary">
           <FormattedMessage id="sidebar.supportBtn" defaultMessage="Need Help?" />
         </Button>
-        <Button onClick={handleLeaveLobby}>
+        <Button onClick={leaveLobby}>
           <FormattedMessage id="sidebar.logoutBtn" defaultMessage="Logout" />
         </Button>
       </StickyBottomContainer>
