@@ -1,19 +1,21 @@
+const { VIDEO_P2P, AUDIO_P2P, VIDEO_GROUP_LARGE, VIDEO_GROUP_SMALL } = require('./constants');
+
 const getRoomOptions = roomType => {
   let type, maxParticipants;
   switch (roomType) {
-    case 'video-group-large':
+    case VIDEO_GROUP_LARGE:
       type = 'group';
       maxParticipants = 10;
       break;
-    case 'video-group-small':
+    case VIDEO_GROUP_SMALL:
       type = 'group-small';
       maxParticipants = 4;
       break;
-    case 'video-p2p':
+    case VIDEO_P2P:
       type = 'peer-to-peer';
       maxParticipants = 4;
       break;
-    case 'audio-p2p':
+    case AUDIO_P2P:
       type = 'peer-to-peer';
       maxParticipants = 10;
       break;

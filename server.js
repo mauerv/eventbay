@@ -9,6 +9,7 @@ const VideoGrant = AccessToken.VideoGrant;
 const bodyParser = require('body-parser');
 const secure = require('ssl-express-www');
 const getRoomOptions = require('./server/twilioRoomOptions');
+const getCustomRoomType = require('./server/getCustomRoomType');
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
@@ -40,8 +41,8 @@ app.get('/token', (req, res) => {
 });
 
 app.get('/api/rooms', async (req, res) => {
-  let rooms = await client.video.rooms.list({ limit: 20 });
-  let roomsWithParticipants = await Promise.all(
+  const rooms = await client.video.rooms.list({ limit: 20 });
+  const roomsWithParticipants = await Promise.all(
     rooms.map(async room => {
       let participants = await client.video
         .rooms(room.uniqueName)
@@ -50,9 +51,13 @@ app.get('/api/rooms', async (req, res) => {
       return room;
     })
   );
-
+  const roomsWithCustomRoomTypes = roomsWithParticipants.map(room => {
+    room.roomType = getCustomRoomType(room.type, room.maxParticipants);
+    return room;
+  });
+  console.log(roomsWithCustomRoomTypes);
   res.set('Content-Type', 'application/json');
-  res.send(roomsWithParticipants);
+  res.send(roomsWithCustomRoomTypes);
 });
 
 app.post('/api/rooms', async (req, res) => {
@@ -79,6 +84,8 @@ app.post('/api/callback', async (req, res) => {
     case 'room-created':
       const roomData = await client.video.rooms(eventData.RoomName).fetch();
       eventData.maxParticipants = roomData.maxParticipants;
+      eventData.roomType = getCustomRoomType(roomData.type, roomData.maxParticipants);
+      console.log(eventData);
       broadcastRoomEvent(eventName, eventData, expressWs.getWss());
       break;
     case 'room-ended':
@@ -111,6 +118,7 @@ const broadcastRoomEvent = (name, event, wss) => {
         status: event.RoomStatus,
         event: name,
         sid: event.RoomSid,
+        roomType: event.RoomType,
         participants: [],
         maxParticipants: event.maxParticipants,
       })
