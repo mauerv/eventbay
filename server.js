@@ -8,7 +8,7 @@ const AccessToken = twilio.jwt.AccessToken;
 const VideoGrant = AccessToken.VideoGrant;
 const bodyParser = require('body-parser');
 const secure = require('ssl-express-www');
-const getRoomOptions = require('./server/twilioRoomOptions');
+const twilioRoomOptions = require('./server/twilioRoomOptions');
 const getCustomRoomType = require('./server/getCustomRoomType');
 
 if (process.env.NODE_ENV !== 'production') {
@@ -55,14 +55,13 @@ app.get('/api/rooms', async (req, res) => {
     room.roomType = getCustomRoomType(room.type, room.maxParticipants);
     return room;
   });
-  console.log(roomsWithCustomRoomTypes);
   res.set('Content-Type', 'application/json');
   res.send(roomsWithCustomRoomTypes);
 });
 
 app.post('/api/rooms', async (req, res) => {
   const { roomName, roomType } = req.body;
-  const { type, maxParticipants } = getRoomOptions(roomType);
+  const { type, maxParticipants } = twilioRoomOptions(roomType);
 
   let callbackUrl = `${process.env.API_TWILIO_CALLBACK_URL}/api/callback`;
 
@@ -85,7 +84,6 @@ app.post('/api/callback', async (req, res) => {
       const roomData = await client.video.rooms(eventData.RoomName).fetch();
       eventData.maxParticipants = roomData.maxParticipants;
       eventData.roomType = getCustomRoomType(roomData.type, roomData.maxParticipants);
-      console.log(eventData);
       broadcastRoomEvent(eventName, eventData, expressWs.getWss());
       break;
     case 'room-ended':
@@ -118,7 +116,7 @@ const broadcastRoomEvent = (name, event, wss) => {
         status: event.RoomStatus,
         event: name,
         sid: event.RoomSid,
-        roomType: event.RoomType,
+        roomType: event.roomType,
         participants: [],
         maxParticipants: event.maxParticipants,
       })

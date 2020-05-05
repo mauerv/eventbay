@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import { Callback } from 'types';
+import { Callback, RoomType } from 'types';
 import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import CapacityIndicator from 'components/CapacityIndicator/CapacityIndicator';
@@ -13,6 +13,7 @@ type Props = {
   onRoomClick: Callback;
   maxParticipants: number;
   currentParticipants: number;
+  roomType: RoomType;
 };
 
 const RoomTitle = ({
@@ -20,6 +21,7 @@ const RoomTitle = ({
   disabled,
   selected,
   onRoomClick,
+  roomType,
   maxParticipants,
   currentParticipants,
 }: Props) => {
@@ -28,11 +30,6 @@ const RoomTitle = ({
     currentParticipants,
     maxParticipants,
   ]);
-
-  const roomType = useMemo(() => {
-    // Hay 4 types posibles: audio-p2p, video-p2p, video-group-large, video-group-small
-    return maxParticipants > 4 ? 'audio-p2p' : 'video-p2p';
-  }, [maxParticipants]);
 
   return (
     <ListItem

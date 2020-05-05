@@ -13,8 +13,7 @@ type Props = {
   disabled: boolean;
 };
 
-const RoomListItem = ({ room, onRoomClick, selected, disabled }: Props) => {
-  console.log(room);
+export default function RoomListItem({ room, onRoomClick, selected, disabled }: Props) {
   return (
     <>
       <RoomTitle
@@ -24,6 +23,7 @@ const RoomListItem = ({ room, onRoomClick, selected, disabled }: Props) => {
         selected={selected}
         maxParticipants={room.maxParticipants}
         currentParticipants={room.participants.length}
+        roomType={room.roomType}
       />
       {room.participants.length !== 0 && (
         <ListItem>
@@ -32,6 +32,4 @@ const RoomListItem = ({ room, onRoomClick, selected, disabled }: Props) => {
       )}
     </>
   );
-};
-
-export default RoomListItem;
+}

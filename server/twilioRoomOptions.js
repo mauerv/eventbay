@@ -1,11 +1,11 @@
 const { VIDEO_P2P, AUDIO_P2P, VIDEO_GROUP_LARGE, VIDEO_GROUP_SMALL } = require('./constants');
 
-const getRoomOptions = roomType => {
+const twilioRoomOptions = roomType => {
   let type, maxParticipants;
   switch (roomType) {
     case VIDEO_GROUP_LARGE:
       type = 'group';
-      maxParticipants = 10;
+      maxParticipants = 8;
       break;
     case VIDEO_GROUP_SMALL:
       type = 'group-small';
@@ -26,4 +26,4 @@ const getRoomOptions = roomType => {
   return { type, maxParticipants };
 };
 
-module.exports = getRoomOptions;
+module.exports = twilioRoomOptions;

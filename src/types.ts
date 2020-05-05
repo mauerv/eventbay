@@ -7,6 +7,7 @@ declare module 'twilio' {
     participants: any[];
     maxParticipants: number;
     sid: string;
+    roomType: RoomType;
   }
 }
 

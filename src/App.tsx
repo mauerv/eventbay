@@ -45,7 +45,7 @@ const App = () => {
     content = <GridRoom />;
   } else if (roomType === 'video-group-large') {
     content = <LargeRoom />;
-  } else {
+  } else if (roomType === 'audio-p2p') {
     content = (
       <AudioContextProvider>
         <AudioRoom />
