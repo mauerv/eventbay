@@ -13,7 +13,7 @@ export default function AudioParticipantTrack({ participant }: Props) {
   const { room } = useVideoContext();
   const isLocal = participant === room.localParticipant;
   const publications = usePublications(participant);
-  const audioPublication = publications.find(publication => publication.kind !== 'audio');
+  const audioPublication = publications.find(publication => publication.kind === 'audio');
 
   if (!audioPublication) return null;
 

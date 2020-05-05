@@ -30,6 +30,7 @@ const RoomTitle = ({
   ]);
 
   const roomType = useMemo(() => {
+    // Hay 4 types posibles: audio-p2p, video-p2p, video-group-large, video-group-small
     return maxParticipants > 4 ? 'audio-p2p' : 'video-p2p';
   }, [maxParticipants]);
 

@@ -13,22 +13,25 @@ type Props = {
   disabled: boolean;
 };
 
-const RoomListItem = ({ room, onRoomClick, selected, disabled }: Props) => (
-  <>
-    <RoomTitle
-      roomName={room.uniqueName}
-      onRoomClick={onRoomClick}
-      disabled={disabled}
-      selected={selected}
-      maxParticipants={room.maxParticipants}
-      currentParticipants={room.participants.length}
-    />
-    {room.participants.length !== 0 && (
-      <ListItem>
-        <ParticipantList participants={room.participants} />
-      </ListItem>
-    )}
-  </>
-);
+const RoomListItem = ({ room, onRoomClick, selected, disabled }: Props) => {
+  console.log(room);
+  return (
+    <>
+      <RoomTitle
+        roomName={room.uniqueName}
+        onRoomClick={onRoomClick}
+        disabled={disabled}
+        selected={selected}
+        maxParticipants={room.maxParticipants}
+        currentParticipants={room.participants.length}
+      />
+      {room.participants.length !== 0 && (
+        <ListItem>
+          <ParticipantList participants={room.participants} />
+        </ListItem>
+      )}
+    </>
+  );
+};
 
 export default RoomListItem;
