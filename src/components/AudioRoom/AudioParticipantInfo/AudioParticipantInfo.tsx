@@ -5,10 +5,15 @@ import usePublicationIsTrackEnabled from 'hooks/usePublicationIsTrackEnabled/use
 import usePublications from 'hooks/usePublications/usePublications';
 import useTrack from 'hooks/useTrack/useTrack';
 import useIsParticipantSpeaking from 'hooks/useIsParticipantSpeaking/useIsParticipantSpeaking';
-import PersonIcon from '@material-ui/icons/Person';
-import VolumeUpIcon from '@material-ui/icons/VolumeUp';
-import { Container, LeftContent, RightContent, Name } from './styles';
-import MicOff from '@material-ui/icons/MicOff';
+import {
+  Container,
+  LeftContent,
+  RightContent,
+  Name,
+  StyledVolumeUpIcon,
+  StyledMicOff,
+  StyledPersonIcon,
+} from './styles';
 
 type Props = {
   participant: RemoteParticipant | LocalParticipant;
@@ -24,15 +29,15 @@ export default function AudioParticipantInfo({ children, participant }: Props) {
 
   let content = null;
   if (!isAudioEnabled) {
-    content = <MicOff fontSize="large" />;
+    content = <StyledMicOff fontSize="large" />;
   } else if (isParticipantSpeaking) {
-    content = <VolumeUpIcon fontSize="large" />;
+    content = <StyledVolumeUpIcon fontSize="large" />;
   }
 
   return (
     <Container>
       <LeftContent>
-        <PersonIcon fontSize="large" />
+        <StyledPersonIcon fontSize="large" />
         <Name>{participant.identity}</Name>
       </LeftContent>
       <RightContent>{content}</RightContent>
