@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 import { TwilioError } from 'twilio-video';
 import useFirebaseAuth from './useFirebaseAuth/useFirebaseAuth';
-import usePasscodeAuth from './usePasscodeAuth/usePasscodeAuth';
 import { User } from 'firebase';
 
 export interface StateContextType {
@@ -31,7 +30,7 @@ export const StateContext = createContext<StateContextType>(null!);
 export default function AppStateProvider(props: React.PropsWithChildren<{}>) {
   const [error, setError] = useState<TwilioError | null>(null);
   const [isFetching, setIsFetching] = useState(false);
-  const [nick, setNick] = useState('');
+  const [nick, setNick] = useState('mau');
 
   let contextValue = {
     nick,
@@ -45,11 +44,6 @@ export default function AppStateProvider(props: React.PropsWithChildren<{}>) {
     contextValue = {
       ...contextValue,
       ...useFirebaseAuth(), // eslint-disable-line react-hooks/rules-of-hooks
-    };
-  } else if (process.env.REACT_APP_SET_AUTH === 'passcode') {
-    contextValue = {
-      ...contextValue,
-      ...usePasscodeAuth(), // eslint-disable-line react-hooks/rules-of-hooks
     };
   } else {
     contextValue = {
