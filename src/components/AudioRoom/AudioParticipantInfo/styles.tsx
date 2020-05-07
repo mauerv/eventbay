@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 import Typography from '@material-ui/core/Typography';
+import VolumeUpIcon from '@material-ui/icons/VolumeUp';
+import MicOff from '@material-ui/icons/MicOff';
+import PersonIcon from '@material-ui/icons/Person';
 
 export const Container = styled.div`
   display: flex;
@@ -23,5 +26,18 @@ export const RightContent = styled.div`
 `;
 
 export const Name = styled(Typography)`
+  color: white;
   margin-left: ${props => props.theme.spacing(1)}px;
+`;
+
+export const StyledVolumeUpIcon = styled(VolumeUpIcon)`
+  color: white;
+`;
+
+export const StyledMicOff = styled(MicOff)`
+  color: white;
+`;
+
+export const StyledPersonIcon = styled(PersonIcon)`
+  color: white;
 `;

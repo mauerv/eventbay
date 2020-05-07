@@ -13,7 +13,7 @@ jest.mock('hooks/useVideoContext/useVideoContext');
 const mockIsUserActive = useIsUserActive as jest.Mock<boolean>;
 const mockUseRoomState = useRoomState as jest.Mock<any>;
 const mockUseVideoContext = useVideoContext as jest.Mock<any>;
-mockUseVideoContext.mockImplementation(() => ({ roomType: 'collaboration' }));
+mockUseVideoContext.mockImplementation(() => ({ roomType: 'video-group-large' }));
 
 describe('the Controls component', () => {
   describe('when the user is active', () => {
@@ -33,26 +33,25 @@ describe('the Controls component', () => {
       expect(wrapper.find('ToggleChatButton').exists()).toBe(false);
     });
 
-    it('should render the ToggleScreenShare and EndCall buttons when connected to a room', () => {
+    it('should render the EndCall and ToggleChat button when connected to a room', () => {
       mockUseRoomState.mockImplementation(() => 'connected');
+      const wrapper = shallow(<Controls />);
+      expect(wrapper.find('EndCallButton').exists()).toBe(true);
+      expect(wrapper.find('ToggleChatButton').exists()).toBe(true);
+    });
+
+    it('should render the ToggleScreenShare button when connected to a large room', () => {
+      mockUseRoomState.mockImplementation(() => 'connected');
+      mockUseVideoContext.mockImplementationOnce(() => ({ roomType: 'video-group-large' }));
       const wrapper = shallow(<Controls />);
       expect(wrapper.find('ToggleScreenShareButton').exists()).toBe(true);
       expect(wrapper.find('EndCallButton').exists()).toBe(true);
       expect(wrapper.find('ToggleChatButton').exists()).toBe(true);
     });
 
-    it('should not render the ToggleScreenShare button when connected to a grid room', () => {
-      mockUseRoomState.mockImplementation(() => 'connected');
-      mockUseVideoContext.mockImplementationOnce(() => ({ roomType: 'grid' }));
-      const wrapper = shallow(<Controls />);
-      expect(wrapper.find('ToggleScreenShareButton').exists()).toBe(false);
-      expect(wrapper.find('EndCallButton').exists()).toBe(true);
-      expect(wrapper.find('ToggleChatButton').exists()).toBe(true);
-    });
-
     it('should not render the ToggleScreenShare and ToggleVideo button when connected to an audio room', () => {
       mockUseRoomState.mockImplementation(() => 'connected');
-      mockUseVideoContext.mockImplementationOnce(() => ({ roomType: 'audio' }));
+      mockUseVideoContext.mockImplementationOnce(() => ({ roomType: 'audio-p2p' }));
       const wrapper = shallow(<Controls />);
       expect(wrapper.find('ToggleScreenShareButton').exists()).toBe(false);
       expect(wrapper.find('ToggleVideoButton').exists()).toBe(false);
