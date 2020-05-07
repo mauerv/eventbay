@@ -1,15 +1,15 @@
 # Setup
 
-- Fill the following enviroment variables for a Twilio account or sub-account:
+- You need to create a .env file at the root of the project and fill the following enviroment variables:
 
   - TWILIO_ACCOUNT_SID
   - TWILIO_API_KEY_SID
   - TWILIO_API_KEY_SECRET
   - TWILIO_AUTH_TOKEN
 
-- You also need to run an ngrok tunnel to the port 8081 `ngrok http 8081` or similar, for Twilio's API to reach localhost:
+- You also need to run an ngrok tunnel to the port 8081 `ngrok http 8081` or similar, for Twilio's API to reach localhost. You need to get the https url that ngrok gives you and use it in the following .env variable.
 
-  - API_TWILIO_CALLBACK_URL=https://15968772.ngrok.io
+  - API_TWILIO_CALLBACK_URL=https://123example.ngrok.io
 
 # To Run
 
