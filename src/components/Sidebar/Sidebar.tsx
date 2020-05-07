@@ -15,7 +15,7 @@ import useCreateRoom from 'hooks/useCreateRoom/useCreateRoom';
 
 const Sidebar = () => {
   const { room } = useVideoContext();
-  const { showMobileUi, showMobileSidebar, toggleMobileSidebar, toggleHelpDialog } = useUIState();
+  const { showMobileUi, showMobileSidebar, toggleMobileSidebar } = useUIState();
   const { roomsState } = useRooms();
   const leaveLobby = useLeaveLobby();
   const { canJoinRooms, joinRoom } = useJoinRoom();

@@ -11,8 +11,6 @@ type UIStateContextType = {
   toggleMobileSidebar: Callback;
   showMobileUi: boolean;
   toggleMobileUi: Callback;
-  showHelpDialog: boolean;
-  toggleHelpDialog: Callback;
   showMediaDevicesDialog: boolean;
   toggleMediaDevicesDialog: Callback;
 };
@@ -29,7 +27,6 @@ const UIStateProvider = ({ children }: Props) => {
   const [showMobileSidebar, toggleMobileSidebar] = useFlagWithToggle();
   const [showMobileUi, toggleMobileUi] = useFlagWithToggle(true);
   const [showChatModal, toggleChatModal] = useFlagWithToggle();
-  const [showHelpDialog, toggleHelpDialog] = useFlagWithToggle();
   const [showMediaDevicesDialog, toggleMediaDevicesDialog] = useFlagWithToggle();
 
   return (
@@ -41,8 +38,6 @@ const UIStateProvider = ({ children }: Props) => {
         toggleMobileUi,
         showChatModal,
         toggleChatModal,
-        showHelpDialog,
-        toggleHelpDialog,
         showMediaDevicesDialog,
         toggleMediaDevicesDialog,
       }}
