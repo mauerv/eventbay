@@ -11,17 +11,4 @@ declare module '@material-ui/core/styles/createMuiTheme' {
   }
 }
 
-export default createMuiTheme({
-  palette: {
-    primary: {
-      light: '#ffac33',
-      main: '#ff9800',
-      dark: '#b26a00',
-      contrastText: '#fff',
-    },
-    background: {
-      default: '#424242',
-    },
-    type: 'dark',
-  },
-});
+export default createMuiTheme();
