@@ -21,5 +21,5 @@ export const List = styled(({ headerText, children, ...rest }) => (
   & .MuiListSubheader-root {
     font-size: 1.1rem;
   }
-  padding-bottom: 36px;
+  padding-bottom: 72px;
 `;

@@ -16,6 +16,7 @@ import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-d
 import ErrorDialog from 'components/ErrorDialog/ErrorDialog';
 import Register from 'components/Register/Register';
 import PrivateRoute from 'components/PrivateRoute/PrivateRoute';
+import LiveSupportProvider from 'components/LiveSupportProvider/LiveSupportProvider';
 import theme from 'theme';
 import 'types';
 import { VideoProvider } from 'components/VideoProvider';
@@ -43,19 +44,25 @@ ReactDOM.render(
           <AppStateProvider>
             <ErrorTrackingProvider>
               <AnalyticsProvider>
-                <UIStateProvider>
-                  <IntlProvider locale={language} messages={translationMessages} defaultLocale="en">
-                    <Switch>
-                      <Route exact path="/">
-                        <Register />
-                      </Route>
-                      <PrivateRoute path="/lobby">
-                        <VideoApp />
-                      </PrivateRoute>
-                      <Redirect to="/" />
-                    </Switch>
-                  </IntlProvider>
-                </UIStateProvider>
+                <LiveSupportProvider>
+                  <UIStateProvider>
+                    <IntlProvider
+                      locale={language}
+                      messages={translationMessages}
+                      defaultLocale="en"
+                    >
+                      <Switch>
+                        <Route exact path="/">
+                          <Register />
+                        </Route>
+                        <PrivateRoute path="/lobby">
+                          <VideoApp />
+                        </PrivateRoute>
+                        <Redirect to="/" />
+                      </Switch>
+                    </IntlProvider>
+                  </UIStateProvider>
+                </LiveSupportProvider>
               </AnalyticsProvider>
             </ErrorTrackingProvider>
           </AppStateProvider>

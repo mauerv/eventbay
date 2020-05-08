@@ -49,6 +49,7 @@ declare global {
   }
   interface Window {
     webkitAudioContext: typeof AudioContext;
+    tidioChatApi: any;
     audioTrack: any;
   }
 }
