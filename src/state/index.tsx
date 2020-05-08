@@ -30,7 +30,7 @@ export const StateContext = createContext<StateContextType>(null!);
 export default function AppStateProvider(props: React.PropsWithChildren<{}>) {
   const [error, setError] = useState<TwilioError | null>(null);
   const [isFetching, setIsFetching] = useState(false);
-  const [nick, setNick] = useState('mau');
+  const [nick, setNick] = useState('');
 
   let contextValue = {
     nick,

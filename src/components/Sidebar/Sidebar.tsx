@@ -12,6 +12,7 @@ import Hidden from '@material-ui/core/Hidden';
 import { Button, MobileDrawer, DesktopDrawer, MenuButton, StickyBottomContainer } from './styles';
 import RoomCreateButtons from './RoomCreateButtons/RoomCreateButtons';
 import useCreateRoom from 'hooks/useCreateRoom/useCreateRoom';
+import { useLiveSupportContext } from 'components/LiveSupportProvider/LiveSupportProvider';
 
 const Sidebar = () => {
   const { room } = useVideoContext();
@@ -20,6 +21,7 @@ const Sidebar = () => {
   const leaveLobby = useLeaveLobby();
   const { canJoinRooms, joinRoom } = useJoinRoom();
   const { canCreateRoom, createRoom } = useCreateRoom();
+  const { openSupportChat } = useLiveSupportContext();
 
   const drawer = (
     <>
@@ -31,6 +33,9 @@ const Sidebar = () => {
         activeRoom={room.name}
       />
       <StickyBottomContainer>
+        <Button onClick={openSupportChat} color="secondary">
+          <FormattedMessage id="sidebar.supportBtn" defaultMessage="Need Help?" />
+        </Button>
         <Button onClick={leaveLobby}>
           <FormattedMessage id="sidebar.logoutBtn" defaultMessage="Logout" />
         </Button>
