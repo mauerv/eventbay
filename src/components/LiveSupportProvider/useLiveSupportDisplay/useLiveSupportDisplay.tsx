@@ -17,7 +17,7 @@ export default function useLiveSupportDisplay() {
     if (tidio.current) {
       tidio.current.on('ready', () => tidio.current.hide());
     } else {
-      document.addEventListener('tidioChat-ready', () => tidio.current.hide());
+      document.addEventListener('tidioChat-ready', () => window.tidioChatApi.hide());
     }
   }, []);
 
