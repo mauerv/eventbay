@@ -1,25 +1,28 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import useUIState from 'components/UIStateProvider/useUIState/useUIState';
 
 export default function useLiveSupportDisplay() {
+  const tidio = useRef(window.tidioChatApi);
+  const { showMobileSidebar, toggleMobileSidebar } = useUIState();
+
   const openSupportChat = () => {
-    if (window.tidioChatApi) {
-      window.tidioChatApi.show();
-      window.tidioChatApi.open();
+    if (tidio.current) {
+      tidio.current.show();
+      tidio.current.open();
+      if (showMobileSidebar) toggleMobileSidebar();
     }
   };
 
   useEffect(() => {
-    if (window.tidioChatApi) {
-      window.tidioChatApi.on('ready', () => window.tidioChatApi.hide());
+    if (tidio.current) {
+      tidio.current.on('ready', () => tidio.current.hide());
     } else {
-      document.addEventListener('tidioChat-ready', () => window.tidioChatApi.hide());
+      document.addEventListener('tidioChat-ready', () => tidio.current.hide());
     }
   }, []);
 
   useEffect(() => {
-    if (window.tidioChatApi) {
-      window.tidioChatApi.on('close', () => window.tidioChatApi.hide());
-    }
+    if (tidio.current) tidio.current.on('close', () => tidio.current.hide());
   }, []);
 
   return openSupportChat;

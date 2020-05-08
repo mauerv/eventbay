@@ -44,8 +44,8 @@ ReactDOM.render(
           <AppStateProvider>
             <ErrorTrackingProvider>
               <AnalyticsProvider>
-                <LiveSupportProvider>
-                  <UIStateProvider>
+                <UIStateProvider>
+                  <LiveSupportProvider>
                     <IntlProvider
                       locale={language}
                       messages={translationMessages}
@@ -61,8 +61,8 @@ ReactDOM.render(
                         <Redirect to="/" />
                       </Switch>
                     </IntlProvider>
-                  </UIStateProvider>
-                </LiveSupportProvider>
+                  </LiveSupportProvider>
+                </UIStateProvider>
               </AnalyticsProvider>
             </ErrorTrackingProvider>
           </AppStateProvider>
