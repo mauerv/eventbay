@@ -3,13 +3,14 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Video, { LocalTrack, Room } from 'twilio-video';
 import { Callback } from 'types';
 import { selectConnectionOptions } from './connectionOptions';
+import useIsMounted from 'hooks/useIsMounted/useIsMounted';
 
 export default function useRoom(localTracks: LocalTrack[], onError: Callback) {
   const [room, setRoom] = useState<Room>(new EventEmitter() as Room);
   const [isConnecting, setIsConnecting] = useState(false);
   const disconnectHandlerRef = useRef<() => void>(() => {});
   const localTracksRef = useRef<LocalTrack[]>([]);
-  const isHookMounted = useRef(true);
+  const isMounted = useIsMounted();
 
   useEffect(() => {
     // It can take a moment for Video.connect to connect to a room. During this time, the user may have enabled or disabled their
@@ -17,12 +18,6 @@ export default function useRoom(localTracks: LocalTrack[], onError: Callback) {
     // once the user is connected to the room.
     localTracksRef.current = localTracks;
   }, [localTracks]);
-
-  useEffect(() => {
-    return () => {
-      isHookMounted.current = false;
-    };
-  }, []);
 
   const connect = useCallback(
     (token, roomType) => {
@@ -35,7 +30,7 @@ export default function useRoom(localTracks: LocalTrack[], onError: Callback) {
 
           newRoom.once('disconnected', () => {
             // Reset the room only after all other `disconnected` listeners have been called.
-            setTimeout(() => isHookMounted.current && setRoom(new EventEmitter() as Room));
+            setTimeout(() => isMounted.current && setRoom(new EventEmitter() as Room));
             window.removeEventListener('beforeunload', disconnectHandlerRef.current);
           });
 
@@ -64,7 +59,7 @@ export default function useRoom(localTracks: LocalTrack[], onError: Callback) {
         }
       );
     },
-    [onError]
+    [onError, isMounted]
   );
 
   return { room, isConnecting, connect };

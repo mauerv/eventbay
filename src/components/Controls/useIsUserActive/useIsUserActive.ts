@@ -1,14 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
 import throttle from 'lodash.throttle';
+import useIsMounted from 'hooks/useIsMounted/useIsMounted';
 
 export default function useIsUserActive() {
   const [isUserActive, setIsUserActive] = useState(true);
   const timeoutIDRef = useRef(0);
-  const isHookMounted = useRef(true);
+  const isMounted = useIsMounted();
 
   useEffect(() => {
     const handleUserActivity = throttle(() => {
-      if (isHookMounted.current) {
+      if (isMounted.current) {
         setIsUserActive(true);
         clearTimeout(timeoutIDRef.current);
         const timeoutID = window.setTimeout(() => setIsUserActive(false), 5000);
@@ -26,9 +27,9 @@ export default function useIsUserActive() {
       window.removeEventListener('click', handleUserActivity);
       window.removeEventListener('keydown', handleUserActivity);
       clearTimeout(timeoutIDRef.current);
-      isHookMounted.current = false;
+      isMounted.current = false;
     };
-  }, []);
+  }, [isMounted]);
 
   return isUserActive;
 }
