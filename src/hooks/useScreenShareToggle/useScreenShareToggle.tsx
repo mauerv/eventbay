@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef } from 'react';
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 import { LogLevels, Track } from 'twilio-video';
 import useAnalytics from 'hooks/useAnalytics/useAnalytics';
 
@@ -10,7 +10,7 @@ interface MediaStreamTrackPublishOptions {
 }
 
 export default function useScreenShareToggle() {
-  const { room, onError } = useVideoContext();
+  const { room, onError } = useMediaContext();
   const [isSharing, setIsSharing] = useState(false);
   const stopScreenShareRef = useRef<() => void>(null!);
   const { logEvent } = useAnalytics();

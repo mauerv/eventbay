@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import LRParticipant from '../LRParticipant/LRParticipant';
 import useParticipants from 'hooks/useParticipants/useParticipants';
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 import useSelectedParticipant from 'components/VideoProvider/useSelectedParticipant/useSelectedParticipant';
 
 const Container = styled.div`
@@ -26,7 +26,7 @@ const FlexHack = styled.div`
 export default function ParticipantStrip() {
   const {
     room: { localParticipant },
-  } = useVideoContext();
+  } = useMediaContext();
   const participants = useParticipants();
   const [selectedParticipant, setSelectedParticipant] = useSelectedParticipant();
 

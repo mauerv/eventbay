@@ -6,13 +6,13 @@ import ToggleFullScreenButton from 'components/ToggleFullScreenButton/ToggleFull
 import EmptyRoomInfo from 'components/EmptyRoomInfo/EmptyRoomInfo';
 import GridParticipant from './GridParticipant/GridParticipant';
 import useParticipants from 'hooks/useParticipants/useParticipants';
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 import { Container } from './styles';
 
 export default function GridRoom() {
   const {
     room: { localParticipant },
-  } = useVideoContext();
+  } = useMediaContext();
   const participants = useParticipants();
 
   const gridSize = useMemo(() => {

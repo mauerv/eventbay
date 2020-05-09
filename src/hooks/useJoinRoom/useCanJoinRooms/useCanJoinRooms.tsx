@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 import { useAppState } from 'state';
 import useRooms from 'components/RoomsProvider/useRooms/useRooms';
 
 export default function useCanJoinRooms() {
-  const { isConnecting } = useVideoContext();
+  const { isConnecting } = useMediaContext();
   const { isFetching } = useAppState();
   const { roomsState } = useRooms();
 

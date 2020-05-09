@@ -2,23 +2,23 @@ import { act, renderHook } from '@testing-library/react-hooks';
 import useAnalytics from 'hooks/useAnalytics/useAnalytics';
 import useCanJoinRooms from './useCanJoinRooms/useCanJoinRooms';
 import useRoomState from 'hooks/useRoomState/useRoomState';
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 import { useAppState } from 'state';
 
 import useJoinRoom from './useJoinRoom';
 
 jest.mock('hooks/useAnalytics/useAnalytics');
-jest.mock('hooks/useVideoContext/useVideoContext');
+jest.mock('hooks/useMediaContext/useMediaContext');
 jest.mock('hooks/useRoomState/useRoomState');
 jest.mock('./useCanJoinRooms/useCanJoinRooms');
 jest.mock('hooks/useRoomState/useRoomState');
-jest.mock('hooks/useVideoContext/useVideoContext');
+jest.mock('hooks/useMediaContext/useMediaContext');
 jest.mock('state');
 
 const _useAnalytics = useAnalytics as jest.Mock<any>;
 const _useCanJoinRooms = useCanJoinRooms as jest.Mock<any>;
 const _useRoomState = useRoomState as jest.Mock<any>;
-const _useVideoContext = useVideoContext as jest.Mock<any>;
+const _useMediaContext = useMediaContext as jest.Mock<any>;
 const _useAppState = useAppState as jest.Mock<any>;
 
 const _logEvent = jest.fn();
@@ -30,7 +30,7 @@ describe('the useJoinRoom hook', () => {
     jest.clearAllMocks();
     _useAnalytics.mockReturnValue({ logEvent: _logEvent });
     _useCanJoinRooms.mockReturnValue(true);
-    _useVideoContext.mockReturnValue({
+    _useMediaContext.mockReturnValue({
       room: { disconnect: _disconnect },
       setRoomType: jest.fn(),
       connect: jest.fn(),

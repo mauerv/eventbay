@@ -8,7 +8,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 import useScreenShareToggle from 'hooks/useScreenShareToggle/useScreenShareToggle';
 import useScreenShareParticipant from 'hooks/useScreenShareParticipant/useScreenShareParticipant';
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 import useFormatMessage from 'hooks/useFormatMessage/useFormatMessage';
 
 export const SCREEN_SHARE_TEXT = 'Share Screen';
@@ -30,7 +30,7 @@ export const Fab = styled(MUIFab)`
 export default function ToggleScreenShareButton(props: { disabled?: boolean }) {
   const [isScreenShared, toggleScreenShare] = useScreenShareToggle();
   const screenShareParticipant = useScreenShareParticipant();
-  const { room } = useVideoContext();
+  const { room } = useMediaContext();
   const disableScreenShareButton =
     screenShareParticipant && screenShareParticipant !== room.localParticipant;
   const isScreenShareSupported = navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia;

@@ -1,13 +1,13 @@
 import { LocalVideoTrack } from 'twilio-video';
 import { useCallback } from 'react';
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 
 export default function useLocalVideoToggle() {
   const {
     room: { localParticipant },
     localTracks,
     getLocalVideoTrack,
-  } = useVideoContext();
+  } = useMediaContext();
   const videoTrack = localTracks.find(track => track.name === 'camera') as LocalVideoTrack;
 
   const toggleVideoEnabled = useCallback(() => {

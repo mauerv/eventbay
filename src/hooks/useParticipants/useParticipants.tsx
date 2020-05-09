@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { RemoteParticipant } from 'twilio-video';
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 
 export default function useParticipants() {
-  const { room } = useVideoContext();
+  const { room } = useMediaContext();
   const [participants, setParticipants] = useState(Array.from(room.participants.values()));
 
   useEffect(() => {

@@ -2,14 +2,14 @@ import { EventEmitter } from 'events';
 import { LocalParticipant } from 'twilio-video';
 import { renderHook } from '@testing-library/react-hooks';
 import useLocalVideoToggle from './useLocalVideoToggle';
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 
-jest.mock('hooks/useVideoContext/useVideoContext');
-const mockUseVideoContext = useVideoContext as jest.Mock<any>;
+jest.mock('hooks/useMediaContext/useMediaContext');
+const mockuseMediaContext = useMediaContext as jest.Mock<any>;
 
 describe('the useLocalVideoToggle hook', () => {
   it('should return true when a localVideoTrack exists', () => {
-    mockUseVideoContext.mockImplementation(() => ({
+    mockuseMediaContext.mockImplementation(() => ({
       localTracks: [
         {
           name: 'camera',
@@ -23,7 +23,7 @@ describe('the useLocalVideoToggle hook', () => {
   });
 
   it('should return false when a localVideoTrack does not exist', () => {
-    mockUseVideoContext.mockImplementation(() => ({
+    mockuseMediaContext.mockImplementation(() => ({
       localTracks: [
         {
           name: 'microphone',
@@ -43,7 +43,7 @@ describe('the useLocalVideoToggle hook', () => {
         stop: jest.fn(),
       };
 
-      mockUseVideoContext.mockImplementation(() => ({
+      mockuseMediaContext.mockImplementation(() => ({
         localTracks: [mockLocalTrack],
         room: { localParticipant: null },
       }));
@@ -62,7 +62,7 @@ describe('the useLocalVideoToggle hook', () => {
       const mockLocalParticipant = new EventEmitter() as LocalParticipant;
       mockLocalParticipant.unpublishTrack = jest.fn();
 
-      mockUseVideoContext.mockImplementation(() => ({
+      mockuseMediaContext.mockImplementation(() => ({
         localTracks: [mockLocalTrack],
         room: { localParticipant: mockLocalParticipant },
       }));
@@ -74,7 +74,7 @@ describe('the useLocalVideoToggle hook', () => {
 
     it('should call getLocalVideoTrack when a localVideoTrack does not exist', () => {
       const mockGetLocalVideoTrack = jest.fn(() => Promise.resolve());
-      mockUseVideoContext.mockImplementation(() => ({
+      mockuseMediaContext.mockImplementation(() => ({
         localTracks: [],
         getLocalVideoTrack: mockGetLocalVideoTrack,
         room: {},
@@ -91,7 +91,7 @@ describe('the useLocalVideoToggle hook', () => {
       const mockLocalParticipant = new EventEmitter() as LocalParticipant;
       mockLocalParticipant.publishTrack = jest.fn();
 
-      mockUseVideoContext.mockImplementation(() => ({
+      mockuseMediaContext.mockImplementation(() => ({
         localTracks: [],
         getLocalVideoTrack: mockGetLocalVideoTrack,
         room: { localParticipant: mockLocalParticipant },

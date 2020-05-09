@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 
 type RoomStateType = 'disconnected' | 'connected' | 'reconnecting';
 
 export default function useRoomState() {
-  const { room } = useVideoContext();
+  const { room } = useMediaContext();
   const [state, setState] = useState<RoomStateType>('disconnected');
 
   useEffect(() => {

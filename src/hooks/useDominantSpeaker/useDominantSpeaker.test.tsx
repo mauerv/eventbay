@@ -1,15 +1,15 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 import EventEmitter from 'events';
 import useDominantSpeaker from './useDominantSpeaker';
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 
-jest.mock('hooks/useVideoContext/useVideoContext');
-const mockUseVideoContext = useVideoContext as jest.Mock<any>;
+jest.mock('hooks/useMediaContext/useMediaContext');
+const mockuseMediaContext = useMediaContext as jest.Mock<any>;
 
 describe('the useDominantSpeaker hook', () => {
   const mockRoom: any = new EventEmitter();
   mockRoom.dominantSpeaker = 'mockDominantSpeaker';
-  mockUseVideoContext.mockImplementation(() => ({ room: mockRoom }));
+  mockuseMediaContext.mockImplementation(() => ({ room: mockRoom }));
 
   it('should return room.dominantSpeaker by default', () => {
     const { result } = renderHook(useDominantSpeaker);

@@ -2,11 +2,11 @@ import { EventEmitter } from 'events';
 import { renderHook } from '@testing-library/react-hooks';
 import useMainSpeaker from './useMainSpeaker';
 import useSelectedParticipant from 'components/VideoProvider/useSelectedParticipant/useSelectedParticipant';
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 
-jest.mock('hooks/useVideoContext/useVideoContext');
+jest.mock('hooks/useMediaContext/useMediaContext');
 jest.mock('components/VideoProvider/useSelectedParticipant/useSelectedParticipant');
-const mockUseVideoContext = useVideoContext as jest.Mock<any>;
+const mockuseMediaContext = useMediaContext as jest.Mock<any>;
 const mockSelectedParticipant = useSelectedParticipant as jest.Mock<any>;
 
 describe('the useMainSpeaker hook', () => {
@@ -17,7 +17,7 @@ describe('the useMainSpeaker hook', () => {
     mockRoom.dominantSpeaker = 'dominantSpeaker';
     mockRoom.participants = new Map([[0, 'participant']]) as any;
     mockRoom.localParticipant = 'localParticipant';
-    mockUseVideoContext.mockImplementation(() => ({ room: mockRoom }));
+    mockuseMediaContext.mockImplementation(() => ({ room: mockRoom }));
     const { result } = renderHook(useMainSpeaker);
     expect(result.current).toBe('dominantSpeaker');
   });
@@ -30,7 +30,7 @@ describe('the useMainSpeaker hook', () => {
       [1, 'secondParticipant'],
     ]) as any;
     mockRoom.localParticipant = 'localParticipant';
-    mockUseVideoContext.mockImplementation(() => ({ room: mockRoom }));
+    mockuseMediaContext.mockImplementation(() => ({ room: mockRoom }));
     const { result } = renderHook(useMainSpeaker);
     expect(result.current).toBe('participant');
   });
@@ -40,7 +40,7 @@ describe('the useMainSpeaker hook', () => {
     mockRoom.dominantSpeaker = null;
     mockRoom.participants = new Map() as any;
     mockRoom.localParticipant = 'localParticipant';
-    mockUseVideoContext.mockImplementation(() => ({ room: mockRoom }));
+    mockuseMediaContext.mockImplementation(() => ({ room: mockRoom }));
     const { result } = renderHook(useMainSpeaker);
     expect(result.current).toBe('localParticipant');
   });
@@ -50,7 +50,7 @@ describe('the useMainSpeaker hook', () => {
     mockRoom.dominantSpeaker = 'dominantSpeaker';
     mockRoom.participants = new Map([[0, 'participant']]) as any;
     mockRoom.localParticipant = 'localParticipant';
-    mockUseVideoContext.mockImplementation(() => ({ room: mockRoom }));
+    mockuseMediaContext.mockImplementation(() => ({ room: mockRoom }));
     mockSelectedParticipant.mockImplementation(() => ['mockSelectedParticipant']);
     const { result } = renderHook(useMainSpeaker);
     expect(result.current).toBe('mockSelectedParticipant');

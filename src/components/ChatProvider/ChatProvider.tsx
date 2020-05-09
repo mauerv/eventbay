@@ -1,7 +1,7 @@
 import React, { createContext, ReactNode } from 'react';
 import { Message, Callback } from 'types';
 import useChatMessages from './useChatMessages/useChatMessages';
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 
 type Context = {
   messages: Message[];
@@ -18,7 +18,7 @@ type Props = {
 export const ChatContext = createContext<Context>(null!);
 
 export default function ChatProvider({ children }: Props) {
-  const { room } = useVideoContext();
+  const { room } = useMediaContext();
   const {
     messages,
     broadcastMessage,

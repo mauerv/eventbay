@@ -1,5 +1,5 @@
 import { RoomType } from 'types';
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 import useAnalytics from 'hooks/useAnalytics/useAnalytics';
 import useRoomName from 'hooks/useRoomName/useRoomName';
 import useCanCreateRoom from './useCanCreateRoom/useCanCreateRoom';
@@ -7,7 +7,7 @@ import { useAppState } from 'state';
 import useRoomState from 'hooks/useRoomState/useRoomState';
 
 export default function useCreateRoom() {
-  const { connect, room, setRoomType } = useVideoContext();
+  const { connect, room, setRoomType } = useMediaContext();
   const { nick, getToken } = useAppState();
   const { logEvent } = useAnalytics();
   const roomName = useRoomName();

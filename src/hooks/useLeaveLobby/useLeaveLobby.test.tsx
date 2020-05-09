@@ -1,15 +1,15 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 import { useAppState } from 'state';
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 import useAnalytics from 'hooks/useAnalytics/useAnalytics';
 
 import useLeaveLobby from './useLeaveLobby';
 
 jest.mock('hooks/useAnalytics/useAnalytics');
 jest.mock('state');
-jest.mock('hooks/useVideoContext/useVideoContext');
+jest.mock('hooks/useMediaContext/useMediaContext');
 
-const mockUseVideoContext = useVideoContext as jest.Mock<any>;
+const mockuseMediaContext = useMediaContext as jest.Mock<any>;
 const mockUseAppState = useAppState as jest.Mock<any>;
 const mockUseAnalytics = useAnalytics as jest.Mock<any>;
 
@@ -21,7 +21,7 @@ const mockStopLocalTracks = jest.fn();
 describe('the useLeaveLobby hook', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    mockUseVideoContext.mockReturnValue({ room: {}, stopLocalTracks: mockStopLocalTracks });
+    mockuseMediaContext.mockReturnValue({ room: {}, stopLocalTracks: mockStopLocalTracks });
     mockUseAppState.mockReturnValue({ setNick: mockSetNick });
     mockUseAnalytics.mockReturnValue({ logEvent: mockLogEvent });
   });
@@ -40,7 +40,7 @@ describe('the useLeaveLobby hook', () => {
   });
 
   it('should disconnect from room if connected.', () => {
-    mockUseVideoContext.mockReturnValue({
+    mockuseMediaContext.mockReturnValue({
       room: { sid: 'exists', disconnect: mockDisconnect },
       stopLocalTracks: jest.fn(),
     });
@@ -52,7 +52,7 @@ describe('the useLeaveLobby hook', () => {
   });
 
   it('should not try to disconnect from room if there is no connected room', () => {
-    mockUseVideoContext.mockReturnValue({
+    mockuseMediaContext.mockReturnValue({
       room: { disconnect: mockDisconnect },
       stopLocalTracks: jest.fn(),
     });

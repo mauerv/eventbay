@@ -2,7 +2,7 @@ import React from 'react';
 import { LocalVideoTrack } from 'twilio-video';
 import { FormattedMessage } from 'react-intl';
 
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 import ToggleSettings from 'components/ToggleSettings/ToggleSettings';
 import {
   Container,
@@ -16,7 +16,7 @@ import {
 } from './styles';
 
 export default function LocalVideoPreview() {
-  const { localTracks } = useVideoContext();
+  const { localTracks } = useMediaContext();
   const videoTrack = localTracks.find(track => track.name === 'camera') as LocalVideoTrack;
   return (
     <Container>

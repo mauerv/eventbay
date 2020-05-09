@@ -1,11 +1,11 @@
 import useAnalytics from 'hooks/useAnalytics/useAnalytics';
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 import { useAppState } from 'state';
 
 export default function useLeaveLobby() {
   const { setNick } = useAppState();
   const { logEvent } = useAnalytics();
-  const { room, stopLocalTracks } = useVideoContext();
+  const { room, stopLocalTracks } = useMediaContext();
 
   const leaveLobby = () => {
     setNick('');

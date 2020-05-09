@@ -7,7 +7,7 @@ import useRoom from './useRoom/useRoom';
 import useHandleRoomDisconnectionErrors from './useHandleRoomDisconnectionErrors/useHandleRoomDisconnectionErrors';
 import useHandleTrackPublicationFailed from './useHandleTrackPublicationFailed/useHandleTrackPublicationFailed';
 import useHandleOnDisconnect from './useHandleOnDisconnect/useHandleOnDisconnect';
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 import { VideoProvider } from './index';
 
 const mockRoom = new EventEmitter() as Room;
@@ -35,7 +35,7 @@ describe('the VideoProvider component', () => {
         {children}
       </VideoProvider>
     );
-    const { result } = renderHook(useVideoContext, { wrapper });
+    const { result } = renderHook(useMediaContext, { wrapper });
 
     expect(result.current).toEqual({
       isConnecting: false,
@@ -64,7 +64,7 @@ describe('the VideoProvider component', () => {
         {children}
       </VideoProvider>
     );
-    const { result } = renderHook(useVideoContext, { wrapper });
+    const { result } = renderHook(useMediaContext, { wrapper });
     result.current.onError({} as TwilioError);
     expect(mockOnError).toHaveBeenCalledWith({});
   });

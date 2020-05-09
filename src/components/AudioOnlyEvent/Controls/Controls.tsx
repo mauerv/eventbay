@@ -10,7 +10,7 @@ import ToggleChatButton from 'components/Controls/ToggleChatButton/ToggleChatBut
 
 import useIsUserActive from 'components/Controls/useIsUserActive/useIsUserActive';
 import useRoomState from 'hooks/useRoomState/useRoomState';
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function Controls() {
   const classes = useStyles();
   const roomState = useRoomState();
-  const { roomType } = useVideoContext();
+  const { roomType } = useMediaContext();
   const isReconnecting = roomState === 'reconnecting';
   const isUserActive = useIsUserActive();
   const showControls = isUserActive || roomState === 'disconnected';

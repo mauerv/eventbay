@@ -2,7 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import useUIState from 'components/UIStateProvider/useUIState/useUIState';
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 import useRooms from 'components/RoomsProvider/useRooms/useRooms';
 import useLeaveLobby from 'hooks/useLeaveLobby/useLeaveLobby';
 import useJoinRoom from 'hooks/useJoinRoom/useJoinRoom';
@@ -15,7 +15,7 @@ import useCreateRoom from 'hooks/useCreateRoom/useCreateRoom';
 import { useLiveSupportContext } from 'components/LiveSupportProvider/LiveSupportProvider';
 
 const Sidebar = () => {
-  const { room } = useVideoContext();
+  const { room } = useMediaContext();
   const { showMobileUi, showMobileSidebar, toggleMobileSidebar } = useUIState();
   const { roomsState } = useRooms();
   const leaveLobby = useLeaveLobby();

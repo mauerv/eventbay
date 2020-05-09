@@ -15,13 +15,13 @@ import ChatProvider from 'components/ChatProvider/ChatProvider';
 import AudioContextProvider from 'components/AudioContextProvider/AudioContextProvider';
 import { Main } from './styles';
 import useRoomState from 'hooks/useRoomState/useRoomState';
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 import { useAppState } from 'state';
 
 const VideoLobby = () => {
   const roomState = useRoomState();
   const { nick } = useAppState();
-  const { isConnecting, roomType } = useVideoContext();
+  const { isConnecting, roomType } = useMediaContext();
   let content;
 
   if (!nick) return <Redirect to="/" />;

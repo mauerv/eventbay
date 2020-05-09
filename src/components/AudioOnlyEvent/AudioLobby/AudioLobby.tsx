@@ -14,13 +14,13 @@ import AudioContextProvider from 'components/AudioContextProvider/AudioContextPr
 import { Main } from './styles';
 
 import useRoomState from 'hooks/useRoomState/useRoomState';
-import useAudioContext from 'components/AudioOnlyEvent/useAudioContext/useAudioContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 import { useAppState } from 'state';
 
-const App = () => {
+const AudioLobby = () => {
   const roomState = useRoomState();
   const { nick } = useAppState();
-  const { isConnecting } = useAudioContext();
+  const { isConnecting } = useMediaContext();
   let content;
 
   if (!nick) return <Redirect to="/" />;
@@ -52,4 +52,4 @@ const App = () => {
   );
 };
 
-export default hot(module)(App);
+export default hot(module)(AudioLobby);

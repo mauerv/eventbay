@@ -6,8 +6,7 @@ import { CssBaseline } from '@material-ui/core';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { StylesProvider } from '@material-ui/core/styles';
 import { ThemeProvider } from 'styled-components';
-import VideoApp from 'components/VideoApp/VideoApp';
-import AudioApp from 'components/AudioOnlyEvent/AudioApp/AudioApp';
+import App from 'App';
 import AppStateProvider from 'state';
 import AnalyticsProvider from 'components/AnalyticsProvider/AnalyticsProvider';
 import UIStateProvider from 'components/UIStateProvider/UIStateProvider';
@@ -41,7 +40,7 @@ ReactDOM.render(
                           <Register />
                         </Route>
                         <PrivateRoute path="/lobby">
-                          {process.env.REACT_APP_AUDIO_ONLY ? <AudioApp /> : <VideoApp />}
+                          <App />
                         </PrivateRoute>
                         <Redirect to="/" />
                       </Switch>
