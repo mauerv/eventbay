@@ -17,7 +17,7 @@ export default function useCreateRoom() {
   const createRoom = async (roomType: RoomType) => {
     if (!canCreateRoom) return;
 
-    const token = await fetch('/api/rooms', {
+    const token = await fetch('/video/rooms', {
       method: 'POST',
       body: JSON.stringify({
         roomName,

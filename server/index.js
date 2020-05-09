@@ -1,27 +1,21 @@
 const express = require('express');
 const compression = require('compression');
 const path = require('path');
-const expressWs = require('express-ws')(express());
-const app = expressWs.app;
 const bodyParser = require('body-parser');
 const secure = require('ssl-express-www');
-const { twilioClient, handleTokenRequest } = require('./twilio.js');
+const { handleTokenRequest } = require('./twilio.js');
+const { app, expressWs } = require('./expressWs.js');
+const videoRoutes = require('./videoEvent/routes.js');
+
 app.use(secure);
 app.use(compression());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'build')));
 
-app.get('/token', (req, res) => {
-  const { identity, roomName } = req.query;
-  const token = new AccessToken(twilioAccountSid, twilioApiKeySID, twilioApiKeySecret, {
-    ttl: MAX_ALLOWED_SESSION_DURATION,
-  });
-  token.identity = identity;
-  const videoGrant = new VideoGrant({ room: roomName });
-  token.addGrant(videoGrant);
-  res.send(token.toJwt());
-});
+app.use('/video', videoRoutes);
+
+app.get('/token', handleTokenRequest);
 
 const getRouteWsClients = route => {
   const filteredClients = Array.from(expressWs.getWss().clients).filter(

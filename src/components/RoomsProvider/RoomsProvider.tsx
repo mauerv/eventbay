@@ -30,7 +30,7 @@ const RoomsProvider = ({ children }: Props) => {
       roomsDispatch({ type: SET_ROOMS_BEGIN });
 
       try {
-        const rooms = await fetch('/api/rooms').then(res => res.json());
+        const rooms = await fetch('/video/rooms').then(res => res.json());
 
         roomsDispatch({ type: SET_ROOMS_SUCCESS, payload: { rooms: rooms } });
       } catch (error) {
