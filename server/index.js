@@ -4,8 +4,9 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const secure = require('ssl-express-www');
 const { handleTokenRequest } = require('./twilio.js');
-const { app, expressWs } = require('./expressWs.js');
+const { app } = require('./expressWs.js');
 const videoRoutes = require('./videoEvent/routes.js');
+const getRouteWsClients = require('./util/getRouteWsClients.js');
 
 app.use(secure);
 app.use(compression());
@@ -16,13 +17,6 @@ app.use(express.static(path.join(__dirname, 'build')));
 app.use('/video', videoRoutes);
 
 app.get('/token', handleTokenRequest);
-
-const getRouteWsClients = route => {
-  const filteredClients = Array.from(expressWs.getWss().clients).filter(
-    sock => sock.route === route
-  );
-  return filteredClients;
-};
 
 app.ws('/chat/:room', (ws, req) => {
   ws.route = req.path;

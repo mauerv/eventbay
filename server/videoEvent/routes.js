@@ -4,7 +4,7 @@ const { twilioClient } = require('../twilio.js');
 const { expressWs } = require('../expressWs.js');
 const twilioRoomOptions = require('./twilioRoomOptions');
 const getCustomRoomType = require('./getCustomRoomType');
-
+const { broadcastRoomEvent, broadcastParticipantEvent } = require('./broadcastHelpers');
 router.get('/rooms', async (req, res) => {
   const rooms = await twilioClient.video.rooms.list({ limit: 20 });
   const roomsWithParticipants = await Promise.all(
@@ -64,43 +64,5 @@ router.post('/callback', async (req, res) => {
       res.end();
   }
 });
-
-const getRouteWsClients = route => {
-  const filteredClients = Array.from(expressWs.getWss().clients).filter(
-    sock => sock.route === route
-  );
-  return filteredClients;
-};
-
-const broadcastRoomEvent = (name, event, wss) => {
-  const filteredClients = getRouteWsClients('/');
-  filteredClients.forEach(ws => {
-    ws.send(
-      JSON.stringify({
-        uniqueName: event.RoomName,
-        status: event.RoomStatus,
-        event: name,
-        sid: event.RoomSid,
-        roomType: event.roomType,
-        participants: [],
-        maxParticipants: event.maxParticipants,
-      })
-    );
-  });
-};
-
-const broadcastParticipantEvent = (name, event, wss) => {
-  const filteredClients = getRouteWsClients('/');
-  filteredClients.forEach(ws => {
-    ws.send(
-      JSON.stringify({
-        roomName: event.RoomName,
-        event: name,
-        sid: event.ParticipantSid,
-        identity: event.ParticipantIdentity,
-      })
-    );
-  });
-};
 
 module.exports = router;
