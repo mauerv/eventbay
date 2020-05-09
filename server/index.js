@@ -6,7 +6,7 @@ const secure = require('ssl-express-www');
 const { handleTokenRequest } = require('./twilio.js');
 const { app } = require('./expressWs.js');
 const videoRoutes = require('./videoEvent/routes.js');
-const getRouteWsClients = require('./util/getRouteWsClients.js');
+const { wsChatHandler, wsRoomsHandler } = require('./wsHandlers');
 
 app.use(secure);
 app.use(compression());
@@ -18,35 +18,9 @@ app.use('/video', videoRoutes);
 
 app.get('/token', handleTokenRequest);
 
-app.ws('/chat/:room', (ws, req) => {
-  ws.route = req.path;
-  ws.onmessage = msg => {
-    const filteredClients = getRouteWsClients(req.path);
-    filteredClients.forEach(sock => sock.send(msg.data));
-  };
-});
+app.ws('/chat/:room', wsChatHandler);
 
-app.ws('/', (ws, req) => {
-  ws.route = '/';
-
-  let isAlive = true;
-
-  const doPing = () => {
-    if (isAlive) {
-      isAlive = false;
-      ws.ping('heartbeat');
-    }
-  };
-
-  setInterval(doPing, 3000);
-
-  ws.on('pong', () => (isAlive = true));
-
-  ws.on('close', () => {
-    isAlive = false;
-    clearInterval(doPing);
-  });
-});
+app.ws('/', wsRoomsHandler);
 
 app.get('*', (_, res) => res.sendFile(path.join(__dirname, 'build/index.html')));
 
