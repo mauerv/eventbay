@@ -2,8 +2,8 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { hot } from 'react-hot-loader';
 
-import Sidebar from 'components/Sidebar/Sidebar';
-import Controls from 'components/Controls/Controls';
+import Sidebar from 'components/AudioOnlyEvent/Sidebar/Sidebar';
+import Controls from 'components/AudioOnlyEvent/Controls/Controls';
 import LocalAudioPreview from 'components/AudioOnlyEvent/LocalAudioPreview/LocalAudioPreview';
 import ReconnectingNotification from 'components/ReconnectingNotification/ReconnectingNotification';
 import AudioRoom from 'components/AudioRoom/AudioRoom';
@@ -27,6 +27,8 @@ const AudioLobby = () => {
 
   if (roomState === 'disconnected' && !isConnecting) {
     content = <LocalAudioPreview />;
+  } else if (roomState === 'disconnected') {
+    content = null;
   } else {
     content = (
       <AudioContextProvider>

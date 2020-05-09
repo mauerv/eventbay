@@ -24,13 +24,14 @@ declare type Props = {
 
 const RoomsProvider = ({ children }: Props) => {
   const [roomsState, roomsDispatch] = useReducer(roomsReducer, roomsInitialState);
+  const fetchUrl = process.env.REACT_APP_AUDIO_ONLY ? '/audio/rooms' : '/video/rooms';
 
   useEffect(() => {
     const fetchRooms = async () => {
       roomsDispatch({ type: SET_ROOMS_BEGIN });
 
       try {
-        const rooms = await fetch('/video/rooms').then(res => res.json());
+        const rooms = await fetch(fetchUrl).then(res => res.json());
 
         roomsDispatch({ type: SET_ROOMS_SUCCESS, payload: { rooms: rooms } });
       } catch (error) {
@@ -39,7 +40,7 @@ const RoomsProvider = ({ children }: Props) => {
     };
 
     fetchRooms();
-  }, []);
+  }, [fetchUrl]);
 
   useEffect(() => {
     let url = 'ws://localhost:8081';

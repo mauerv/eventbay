@@ -2,15 +2,11 @@ import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import clsx from 'clsx';
 
-import EndCallButton from 'components/Controls/EndCallButton/EndCallButton';
+import EndCallButton from './EndCallButton/EndCallButton';
 import ToggleAudioButton from 'components/Controls/ToggleAudioButton/ToggleAudioButton';
-import ToggleVideoButton from 'components/Controls/ToggleVideoButton/ToggleVideoButton';
-import ToggleScreenShareButton from 'components/Controls/ToogleScreenShareButton/ToggleScreenShareButton';
 import ToggleChatButton from 'components/Controls/ToggleChatButton/ToggleChatButton';
-
 import useIsUserActive from 'components/Controls/useIsUserActive/useIsUserActive';
 import useRoomState from 'hooks/useRoomState/useRoomState';
-import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,7 +34,6 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function Controls() {
   const classes = useStyles();
   const roomState = useRoomState();
-  const { roomType } = useMediaContext();
   const isReconnecting = roomState === 'reconnecting';
   const isUserActive = useIsUserActive();
   const showControls = isUserActive || roomState === 'disconnected';
@@ -46,12 +41,8 @@ export default function Controls() {
   return (
     <div className={clsx(classes.container, { showControls })}>
       <ToggleAudioButton disabled={isReconnecting} />
-      {roomType !== 'audio-p2p' && <ToggleVideoButton disabled={isReconnecting} />}
       {roomState !== 'disconnected' && (
         <>
-          {roomType === 'video-group-large' && (
-            <ToggleScreenShareButton disabled={isReconnecting} />
-          )}
           <ToggleChatButton disabled={isReconnecting} />
           <EndCallButton />
         </>

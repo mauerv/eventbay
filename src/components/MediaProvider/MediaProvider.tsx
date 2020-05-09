@@ -14,7 +14,7 @@ type Context = {
   room: Room;
   localTracks: (LocalAudioTrack | LocalVideoTrack)[];
   isConnecting: boolean;
-  connect: (token: string, roomType: string) => Promise<void>;
+  connect: (...args: any[]) => Promise<void>;
   onError: ErrorCallback;
   onDisconnect: Callback;
   stopLocalTracks: Callback;

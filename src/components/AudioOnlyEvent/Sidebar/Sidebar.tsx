@@ -5,7 +5,7 @@ import useUIState from 'components/UIStateProvider/useUIState/useUIState';
 import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 import useRooms from 'components/RoomsProvider/useRooms/useRooms';
 import useLeaveLobby from 'hooks/useLeaveLobby/useLeaveLobby';
-import useJoinRoom from 'hooks/useJoinRoom/useJoinRoom';
+import useJoinRoom from 'components/AudioOnlyEvent/hooks/useJoinRoom/useJoinRoom';
 import RoomList from './RoomList/RoomList';
 import Collapse from '@material-ui/core/Collapse';
 import Hidden from '@material-ui/core/Hidden';
