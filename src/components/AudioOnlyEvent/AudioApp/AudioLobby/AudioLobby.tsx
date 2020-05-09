@@ -4,7 +4,7 @@ import { hot } from 'react-hot-loader';
 
 import Sidebar from 'components/Sidebar/Sidebar';
 import Controls from 'components/Controls/Controls';
-import LocalVideoPreview from 'components/LocalVideoPreview/LocalVideoPreview';
+import LocalAudioPreview from 'components/AudioOnlyEvent/LocalAudioPreview/LocalAudioPreview';
 import ReconnectingNotification from 'components/ReconnectingNotification/ReconnectingNotification';
 import AudioRoom from 'components/AudioRoom/AudioRoom';
 import RoomsProvider from 'components/RoomsProvider/RoomsProvider';
@@ -14,19 +14,19 @@ import AudioContextProvider from 'components/AudioContextProvider/AudioContextPr
 import { Main } from './styles';
 
 import useRoomState from 'hooks/useRoomState/useRoomState';
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useAudioContext from 'components/AudioOnlyEvent/useAudioContext/useAudioContext';
 import { useAppState } from 'state';
 
 const App = () => {
   const roomState = useRoomState();
   const { nick } = useAppState();
-  const { isConnecting } = useVideoContext();
+  const { isConnecting } = useAudioContext();
   let content;
 
   if (!nick) return <Redirect to="/" />;
 
   if (roomState === 'disconnected' && !isConnecting) {
-    content = <LocalVideoPreview />;
+    content = <LocalAudioPreview />;
   } else {
     content = (
       <AudioContextProvider>
