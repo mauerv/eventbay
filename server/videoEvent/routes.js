@@ -1,46 +1,7 @@
-const express = require('express');
-const compression = require('compression');
-const path = require('path');
-const expressWs = require('express-ws')(express());
-const app = expressWs.app;
-const twilio = require('twilio');
-const AccessToken = twilio.jwt.AccessToken;
-const VideoGrant = AccessToken.VideoGrant;
-const bodyParser = require('body-parser');
-const secure = require('ssl-express-www');
-const twilioRoomOptions = require('./server/twilioRoomOptions');
-const getCustomRoomType = require('./server/getCustomRoomType');
+var express = require('express');
+var router = express.Router();
 
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config();
-}
-
-const MAX_ALLOWED_SESSION_DURATION = 14400;
-const twilioAccountSid = process.env.TWILIO_ACCOUNT_SID;
-const twilioApiKeySID = process.env.TWILIO_API_KEY_SID;
-const twilioApiKeySecret = process.env.TWILIO_API_KEY_SECRET;
-const twilioAuthToken = process.env.TWILIO_AUTH_TOKEN;
-
-const client = twilio(twilioAccountSid, twilioAuthToken);
-
-app.use(secure);
-app.use(compression());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'build')));
-
-app.get('/token', (req, res) => {
-  const { identity, roomName } = req.query;
-  const token = new AccessToken(twilioAccountSid, twilioApiKeySID, twilioApiKeySecret, {
-    ttl: MAX_ALLOWED_SESSION_DURATION,
-  });
-  token.identity = identity;
-  const videoGrant = new VideoGrant({ room: roomName });
-  token.addGrant(videoGrant);
-  res.send(token.toJwt());
-});
-
-app.get('/api/rooms', async (req, res) => {
+router.get('/api/rooms', async (req, res) => {
   const rooms = await client.video.rooms.list({ limit: 20 });
   const roomsWithParticipants = await Promise.all(
     rooms.map(async room => {
@@ -59,7 +20,7 @@ app.get('/api/rooms', async (req, res) => {
   res.send(roomsWithCustomRoomTypes);
 });
 
-app.post('/api/rooms', async (req, res) => {
+router.post('/api/rooms', async (req, res) => {
   const { roomName, roomType } = req.body;
   const { type, maxParticipants } = twilioRoomOptions(roomType);
 
@@ -75,7 +36,7 @@ app.post('/api/rooms', async (req, res) => {
   res.send(roomName);
 });
 
-app.post('/api/callback', async (req, res) => {
+router.post('/api/callback', async (req, res) => {
   const eventName = req.body.StatusCallbackEvent;
   const eventData = req.body;
 
@@ -137,38 +98,3 @@ const broadcastParticipantEvent = (name, event, wss) => {
     );
   });
 };
-
-app.ws('/chat/:room', (ws, req) => {
-  ws.route = req.path;
-  ws.onmessage = msg => {
-    const filteredClients = getRouteWsClients(req.path);
-    filteredClients.forEach(sock => sock.send(msg.data));
-  };
-});
-
-app.ws('/', (ws, req) => {
-  ws.route = '/';
-
-  let isAlive = true;
-
-  const doPing = () => {
-    if (isAlive) {
-      isAlive = false;
-      ws.ping('heartbeat');
-    }
-  };
-
-  setInterval(doPing, 3000);
-
-  ws.on('pong', () => (isAlive = true));
-
-  ws.on('close', () => {
-    isAlive = false;
-    clearInterval(doPing);
-  });
-});
-
-app.get('*', (_, res) => res.sendFile(path.join(__dirname, 'build/index.html')));
-
-const port = process.env.PORT || 8081;
-app.listen(port, () => console.log(`token server running on ${port}`));
