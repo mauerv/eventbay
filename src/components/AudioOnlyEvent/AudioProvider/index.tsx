@@ -1,17 +1,22 @@
-import React, { createContext, ReactNode, useState } from 'react';
+import React, { createContext, ReactNode } from 'react';
 import { Room, TwilioError, LocalAudioTrack } from 'twilio-video';
 
 import { Callback, ErrorCallback } from 'types';
+import useHandleRoomDisconnectionErrors from 'components/VideoProvider/useHandleRoomDisconnectionErrors/useHandleRoomDisconnectionErrors';
+import useHandleOnDisconnect from 'components/VideoProvider/useHandleOnDisconnect/useHandleOnDisconnect';
+import useHandleTrackPublicationFailed from 'components/VideoProvider/useHandleTrackPublicationFailed/useHandleTrackPublicationFailed';
+import useLocalTracks from './useLocalTracks/useLocalTracks';
+import useAudioRoom from './useAudioRoom/useAudioRoom';
 import useErrorTracking from 'hooks/useErrorTracking/useErrorTracking';
 
 interface Context {
   room: Room;
-  localAudioTrack: LocalAudioTrack;
+  localTracks: LocalAudioTrack[];
   isConnecting: boolean;
   connect: (token: string) => Promise<void>;
   onError: ErrorCallback;
   onDisconnect: Callback;
-  stopLocalTrack: Callback;
+  stopLocalTracks: Callback;
 }
 
 interface Props {
@@ -34,8 +39,8 @@ export default function AudioProvider({
     onError(error);
   };
 
-  // Need custom useLocalAudioTrack
-  // Need custom useAudioRoom
+  const { localTracks, stopLocalTracks } = useLocalTracks();
+  const { room, isConnecting, connect } = useAudioRoom(localTracks, onErrorCallback);
 
   // Register onError and onDisconnect callback functions.
   useHandleRoomDisconnectionErrors(room, onError);
@@ -46,11 +51,11 @@ export default function AudioProvider({
     <AudioContext.Provider
       value={{
         room,
-        localAudioTrack,
+        localTracks,
         isConnecting,
         onError: onErrorCallback,
         onDisconnect,
-        stopLocalAudioTrack,
+        stopLocalTracks,
         connect,
       }}
     >

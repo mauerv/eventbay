@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Video, { LocalAudioTrack } from 'twilio-video';
 import useMediaDevices from 'hooks/useMediaDevices/useMediaDevices';
 
-export function useLocalAudioTrack() {
+const useLocalAudioTrack = () => {
   const [track, setTrack] = useState<LocalAudioTrack>();
   const { selectedAudioInput } = useMediaDevices();
 
@@ -24,9 +24,17 @@ export function useLocalAudioTrack() {
     }
   }, [track]);
 
-  const stopLocalAudioTrack = () => {
-    if (track) track.stop();
+  return track;
+};
+
+export default function useLocalTracks() {
+  const audioTrack = useLocalAudioTrack();
+
+  const localTracks = [audioTrack].filter(track => track !== undefined) as LocalAudioTrack[];
+
+  const stopLocalTracks = () => {
+    localTracks.forEach(track => track.stop());
   };
 
-  return { localAudioTrack: track, stopLocalAudioTrack };
+  return { localTracks, stopLocalTracks };
 }
