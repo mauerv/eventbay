@@ -3,9 +3,11 @@ const compression = require('compression');
 const path = require('path');
 const bodyParser = require('body-parser');
 const secure = require('ssl-express-www');
-const { handleTokenRequest } = require('./twilio.js');
 const { app } = require('./expressWs.js');
+const { handleTokenRequest } = require('./twilio.js');
 const videoRoutes = require('./videoEvent/routes.js');
+const audioRoutes = require('./audioEvent/routes.js');
+
 const { wsChatHandler, wsRoomsHandler } = require('./wsHandlers');
 
 app.use(secure);
@@ -15,6 +17,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'build')));
 
 app.use('/video', videoRoutes);
+app.use('/audio', audioRoutes);
 
 app.get('/token', handleTokenRequest);
 

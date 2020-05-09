@@ -1,8 +1,14 @@
-app.get('/api/rooms', async (req, res) => {
-  const rooms = await client.video.rooms.list({ limit: 20 });
+var express = require('express');
+var router = express.Router();
+const { twilioClient } = require('../twilio.js');
+const { expressWs } = require('../expressWs.js');
+const { broadcastRoomEvent, broadcastParticipantEvent } = require('./broadcastHelpers');
+
+router.get('/rooms', async (req, res) => {
+  const rooms = await twilioClient.video.rooms.list({ limit: 20 });
   const roomsWithParticipants = await Promise.all(
     rooms.map(async room => {
-      let participants = await client.video
+      let participants = await twilioClient.video
         .rooms(room.uniqueName)
         .participants.list({ status: 'connected' }, (err, participants) => participants);
       room.participants = participants;
@@ -13,12 +19,12 @@ app.get('/api/rooms', async (req, res) => {
   res.send(roomsWithParticipants);
 });
 
-app.post('/api/rooms', async (req, res) => {
+router.post('/rooms', async (req, res) => {
   const { roomName } = req.body;
 
   let callbackUrl = `${process.env.API_TWILIO_CALLBACK_URL}/api/callback`;
 
-  const room = await client.video.rooms.create({
+  const room = await twilioClient.video.rooms.create({
     uniqueName: roomName,
     statusCallback: callbackUrl,
     maxParticipants: 10,
@@ -28,13 +34,13 @@ app.post('/api/rooms', async (req, res) => {
   res.send(roomName);
 });
 
-app.post('/api/callback', async (req, res) => {
+router.post('/callback', async (req, res) => {
   const eventName = req.body.StatusCallbackEvent;
   const eventData = req.body;
 
   switch (eventName) {
     case 'room-created':
-      const roomData = await client.video.rooms(eventData.RoomName).fetch();
+      const roomData = await twilioClient.video.rooms(eventData.RoomName).fetch();
       eventData.maxParticipants = roomData.maxParticipants;
       broadcastRoomEvent(eventName, eventData, expressWs.getWss());
       break;
@@ -52,39 +58,4 @@ app.post('/api/callback', async (req, res) => {
   }
 });
 
-const getRouteWsClients = route => {
-  const filteredClients = Array.from(expressWs.getWss().clients).filter(
-    sock => sock.route === route
-  );
-  return filteredClients;
-};
-
-const broadcastRoomEvent = (name, event, wss) => {
-  const filteredClients = getRouteWsClients('/');
-  filteredClients.forEach(ws => {
-    ws.send(
-      JSON.stringify({
-        uniqueName: event.RoomName,
-        status: event.RoomStatus,
-        event: name,
-        sid: event.RoomSid,
-        participants: [],
-        maxParticipants: event.maxParticipants,
-      })
-    );
-  });
-};
-
-const broadcastParticipantEvent = (name, event, wss) => {
-  const filteredClients = getRouteWsClients('/');
-  filteredClients.forEach(ws => {
-    ws.send(
-      JSON.stringify({
-        roomName: event.RoomName,
-        event: name,
-        sid: event.ParticipantSid,
-        identity: event.ParticipantIdentity,
-      })
-    );
-  });
-};
+module.exports = router;

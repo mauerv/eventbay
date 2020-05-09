@@ -5,6 +5,7 @@ const { expressWs } = require('../expressWs.js');
 const twilioRoomOptions = require('./twilioRoomOptions');
 const getCustomRoomType = require('./getCustomRoomType');
 const { broadcastRoomEvent, broadcastParticipantEvent } = require('./broadcastHelpers');
+
 router.get('/rooms', async (req, res) => {
   const rooms = await twilioClient.video.rooms.list({ limit: 20 });
   const roomsWithParticipants = await Promise.all(
