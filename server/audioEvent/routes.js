@@ -22,7 +22,7 @@ router.get('/rooms', async (req, res) => {
 router.post('/rooms', async (req, res) => {
   const { roomName } = req.body;
 
-  let callbackUrl = `${process.env.API_TWILIO_CALLBACK_URL}/api/callback`;
+  let callbackUrl = `${process.env.API_TWILIO_CALLBACK_URL}/audio/callback`;
 
   const room = await twilioClient.video.rooms.create({
     uniqueName: roomName,
