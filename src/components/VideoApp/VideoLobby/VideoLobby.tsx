@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
 import { hot } from 'react-hot-loader';
 
@@ -14,22 +13,12 @@ import RoomsProvider from 'components/RoomsProvider/RoomsProvider';
 import MediaDevicesDialog from 'components/MediaDevicesDialog/MediaDevicesDialog';
 import ChatProvider from 'components/ChatProvider/ChatProvider';
 import AudioContextProvider from 'components/AudioContextProvider/AudioContextProvider';
-
+import { Main } from './styles';
 import useRoomState from 'hooks/useRoomState/useRoomState';
 import useVideoContext from 'hooks/useVideoContext/useVideoContext';
 import { useAppState } from 'state';
 
-const Main = styled.main`
-  height: calc(var(--vh) * 100);
-  width: 100%;
-  position: relative;
-  @media (min-width: 960px) {
-    left: 240px;
-    width: calc(100% - 240px);
-  }
-`;
-
-const App = () => {
+const VideoLobby = () => {
   const roomState = useRoomState();
   const { nick } = useAppState();
   const { isConnecting, roomType } = useVideoContext();
@@ -70,4 +59,4 @@ const App = () => {
   );
 };
 
-export default hot(module)(App);
+export default hot(module)(VideoLobby);
