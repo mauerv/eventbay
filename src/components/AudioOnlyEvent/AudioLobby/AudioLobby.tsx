@@ -40,8 +40,8 @@ const AudioLobby = () => {
 
   return (
     <>
-      <MenuBar />
       <RoomsProvider>
+        <MenuBar />
         <Sidebar />
       </RoomsProvider>
       <Main>

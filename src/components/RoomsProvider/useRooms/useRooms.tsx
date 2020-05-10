@@ -3,6 +3,9 @@ import { useContext } from 'react';
 import { RoomsContext } from '../RoomsProvider';
 
 export default function useRooms() {
-  const { roomsState, roomsDispatch } = useContext(RoomsContext);
-  return { roomsState, roomsDispatch };
+  const context = useContext(RoomsContext);
+  if (!context) {
+    throw new Error('useRooms must be used within a RoomsProvider');
+  }
+  return context;
 }

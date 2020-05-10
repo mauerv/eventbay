@@ -4,6 +4,7 @@ import ToggleFullscreenButton from 'components/ToggleFullScreenButton/ToggleFull
 import { useAppState } from 'state';
 import useRoomState from 'hooks/useRoomState/useRoomState';
 import useMediaContext from 'hooks/useMediaContext/useMediaContext';
+import useCreateConversation from '../hooks/useCreateConversation/useCreateConversation';
 import {
   AppBar,
   RightButtonContainer,
@@ -16,8 +17,9 @@ import {
 } from './styles';
 
 export default function MenuBar() {
-  const { nick, getToken, isFetching } = useAppState();
-  const { isConnecting, connect } = useMediaContext();
+  const { nick, isFetching } = useAppState();
+  const { isConnecting } = useMediaContext();
+  const { createConversation } = useCreateConversation();
   const roomState = useRoomState();
 
   const [roomName, setRoomName] = useState('');
@@ -29,7 +31,7 @@ export default function MenuBar() {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    getToken(nick, roomName).then(token => connect(token));
+    createConversation(roomName);
   };
 
   return (
