@@ -58,23 +58,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function MenuBar() {
   const classes = useStyles();
-  const { URLRoomName } = useParams();
-  const { user, getToken, isFetching } = useAppState();
+  const { nick, getToken, isFetching } = useAppState();
   const { isConnecting, connect } = useMediaContext();
   const roomState = useRoomState();
 
-  const [name, setName] = useState<string>(user?.displayName || '');
-  const [roomName, setRoomName] = useState<string>('');
-
-  useEffect(() => {
-    if (URLRoomName) {
-      setRoomName(URLRoomName);
-    }
-  }, [URLRoomName]);
-
-  const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
-  };
+  const [roomName, setRoomName] = useState('');
 
   const handleRoomNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setRoomName(event.target.value);
@@ -90,7 +78,7 @@ export default function MenuBar() {
         window.encodeURI(`/room/${roomName}${window.location.search || ''}`)
       );
     }
-    getToken(name, roomName).then(token => connect(token));
+    getToken(nick, roomName).then(token => connect(token));
   };
 
   return (
@@ -98,23 +86,12 @@ export default function MenuBar() {
       <Toolbar className={classes.toolbar}>
         {roomState === 'disconnected' ? (
           <form className={classes.form} onSubmit={handleSubmit}>
-            {window.location.search.includes('customIdentity=true') || !user?.displayName ? (
-              <TextField
-                id="menu-name"
-                label="Name"
-                className={classes.textField}
-                value={name}
-                onChange={handleNameChange}
-                margin="dense"
-              />
-            ) : (
-              <Typography className={classes.displayName} variant="body1">
-                {user.displayName}
-              </Typography>
-            )}
+            <Typography className={classes.displayName} variant="body1">
+              {nick}
+            </Typography>
             <TextField
               id="menu-room"
-              label="Room"
+              label="Topic"
               className={classes.textField}
               value={roomName}
               onChange={handleRoomNameChange}
@@ -125,9 +102,9 @@ export default function MenuBar() {
               type="submit"
               color="primary"
               variant="contained"
-              disabled={isConnecting || !name || !roomName || isFetching}
+              disabled={isConnecting || !nick || !roomName || isFetching}
             >
-              Join Room
+              Start Conversation
             </Button>
             {(isConnecting || isFetching) && (
               <CircularProgress className={classes.loadingSpinner} />
