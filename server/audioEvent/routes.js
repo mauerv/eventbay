@@ -31,8 +31,6 @@ router.post('/rooms', async (req, res) => {
     type: 'peer-to-peer',
   });
 
-  console.log(room);
-
   res.send(roomName);
 });
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { hot } from 'react-hot-loader';
 
+import MenuBar from '../MenuBar/MenuBar';
 import Sidebar from 'components/AudioOnlyEvent/Sidebar/Sidebar';
 import Controls from 'components/AudioOnlyEvent/Controls/Controls';
 import LocalAudioPreview from 'components/AudioOnlyEvent/LocalAudioPreview/LocalAudioPreview';
@@ -39,6 +40,7 @@ const AudioLobby = () => {
 
   return (
     <>
+      <MenuBar />
       <RoomsProvider>
         <Sidebar />
       </RoomsProvider>
