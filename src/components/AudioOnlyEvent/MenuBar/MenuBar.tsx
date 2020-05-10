@@ -1,63 +1,21 @@
-import React, { ChangeEvent, FormEvent, useState, useEffect } from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 
-import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import TextField from '@material-ui/core/TextField';
 import ToggleFullscreenButton from 'components/ToggleFullScreenButton/ToggleFullScreenButton';
-import Toolbar from '@material-ui/core/Toolbar';
-
 import { useAppState } from 'state';
-import { useParams } from 'react-router-dom';
 import useRoomState from 'hooks/useRoomState/useRoomState';
 import useMediaContext from 'hooks/useMediaContext/useMediaContext';
-import { Typography } from '@material-ui/core';
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    container: {
-      backgroundColor: theme.palette.background.default,
-    },
-    toolbar: {
-      [theme.breakpoints.down('xs')]: {
-        padding: 0,
-      },
-    },
-    rightButtonContainer: {
-      display: 'flex',
-      alignItems: 'center',
-      marginLeft: 'auto',
-    },
-    form: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      alignItems: 'center',
-      [theme.breakpoints.up('md')]: {
-        marginLeft: '2.2em',
-      },
-    },
-    textField: {
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-      maxWidth: 200,
-    },
-    loadingSpinner: {
-      marginLeft: '1em',
-    },
-    displayName: {
-      margin: '1.1em 0.6em',
-      minWidth: '200px',
-      fontWeight: 600,
-    },
-    joinButton: {
-      margin: '1em',
-    },
-  })
-);
+import {
+  AppBar,
+  RightButtonContainer,
+  Toolbar,
+  TextField,
+  Form,
+  DisplayName,
+  JoinButton,
+  LoadingSpinner,
+} from './styles';
 
 export default function MenuBar() {
-  const classes = useStyles();
   const { nick, getToken, isFetching } = useAppState();
   const { isConnecting, connect } = useMediaContext();
   const roomState = useRoomState();
@@ -70,52 +28,39 @@ export default function MenuBar() {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // If this app is deployed as a twilio function, don't change the URL because routing isn't supported.
-    if (!window.location.origin.includes('twil.io')) {
-      window.history.replaceState(
-        null,
-        '',
-        window.encodeURI(`/room/${roomName}${window.location.search || ''}`)
-      );
-    }
+
     getToken(nick, roomName).then(token => connect(token));
   };
 
   return (
-    <AppBar className={classes.container} position="static">
-      <Toolbar className={classes.toolbar}>
+    <AppBar>
+      <Toolbar>
         {roomState === 'disconnected' ? (
-          <form className={classes.form} onSubmit={handleSubmit}>
-            <Typography className={classes.displayName} variant="body1">
-              {nick}
-            </Typography>
+          <Form onSubmit={handleSubmit}>
+            <DisplayName>{nick}</DisplayName>
             <TextField
               id="menu-room"
               label="Topic"
-              className={classes.textField}
               value={roomName}
               onChange={handleRoomNameChange}
               margin="dense"
             />
-            <Button
-              className={classes.joinButton}
+            <JoinButton
               type="submit"
               color="primary"
               variant="contained"
               disabled={isConnecting || !nick || !roomName || isFetching}
             >
               Start Conversation
-            </Button>
-            {(isConnecting || isFetching) && (
-              <CircularProgress className={classes.loadingSpinner} />
-            )}
-          </form>
+            </JoinButton>
+            {(isConnecting || isFetching) && <LoadingSpinner />}
+          </Form>
         ) : (
           <h3>{roomName}</h3>
         )}
-        <div className={classes.rightButtonContainer}>
+        <RightButtonContainer>
           <ToggleFullscreenButton />
-        </div>
+        </RightButtonContainer>
       </Toolbar>
     </AppBar>
   );
