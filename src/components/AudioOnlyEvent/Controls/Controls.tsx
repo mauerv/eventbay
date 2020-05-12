@@ -7,6 +7,7 @@ import ToggleAudioButton from 'components/Controls/ToggleAudioButton/ToggleAudio
 import ToggleChatButton from 'components/Controls/ToggleChatButton/ToggleChatButton';
 import useIsUserActive from 'components/Controls/useIsUserActive/useIsUserActive';
 import useRoomState from 'hooks/useRoomState/useRoomState';
+import Hidden from '@material-ui/core/Hidden';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -43,7 +44,9 @@ export default function Controls() {
       <ToggleAudioButton disabled={isReconnecting} />
       {roomState !== 'disconnected' && (
         <>
-          <ToggleChatButton disabled={isReconnecting} />
+          <Hidden mdUp>
+            <ToggleChatButton disabled={isReconnecting} />
+          </Hidden>
           <EndCallButton />
         </>
       )}

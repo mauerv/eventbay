@@ -6,7 +6,7 @@ import MenuBar from '../MenuBar/MenuBar';
 import Controls from 'components/AudioOnlyEvent/Controls/Controls';
 import LocalAudioPreview from 'components/AudioOnlyEvent/LocalAudioPreview/LocalAudioPreview';
 import ReconnectingNotification from 'components/ReconnectingNotification/ReconnectingNotification';
-import AudioRoom from 'components/AudioRoom/AudioRoom';
+import AudioRoom from 'components/AudioOnlyEvent/AudioRoom/AudioRoom';
 import RoomsProvider from 'components/RoomsProvider/RoomsProvider';
 import MediaDevicesDialog from 'components/MediaDevicesDialog/MediaDevicesDialog';
 import ChatProvider from 'components/ChatProvider/ChatProvider';
