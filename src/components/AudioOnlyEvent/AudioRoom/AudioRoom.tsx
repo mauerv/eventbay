@@ -5,7 +5,7 @@ import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 import Chat from 'components/AudioOnlyEvent/Chat/Chat';
 import AudioParticipant from './AudioParticipant/AudioParticipant';
 import { Container, Left, Center, Right } from './styles';
-
+import ConversationGrid from 'components/ConversationGrid/ConversationGrid';
 export default function AudioRoom() {
   const {
     room: { localParticipant },
@@ -14,7 +14,9 @@ export default function AudioRoom() {
 
   return (
     <Container>
-      <Left></Left>
+      <Left>
+        <ConversationGrid />
+      </Left>
       <Center>
         {[localParticipant, ...participants].map(participant => (
           <AudioParticipant key={participant.sid} participant={participant} />
