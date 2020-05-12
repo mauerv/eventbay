@@ -34,14 +34,11 @@ router.post('/rooms', async (req, res) => {
 });
 
 router.post('/callback', async (req, res) => {
-  console.log('Callback was hit.');
-
   const eventName = req.body.StatusCallbackEvent;
   const eventData = req.body;
 
   switch (eventName) {
     case 'room-created':
-      console.log('Room created');
       const roomData = await twilioClient.video.rooms(eventData.RoomName).fetch();
       eventData.maxParticipants = roomData.maxParticipants;
       broadcastRoomEvent(eventName, eventData);
