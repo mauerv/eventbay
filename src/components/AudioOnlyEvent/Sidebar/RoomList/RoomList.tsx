@@ -14,7 +14,7 @@ type Props = {
 };
 
 export default function RoomList({ rooms, onRoomClick, activeRoom, canJoinRoom }: Props) {
-  const headerText = useFormatMessage({ id: 'roomlist.headerText', defaultMessage: 'Open Rooms' });
+  const headerText = useFormatMessage({ id: 'roomlist.headerText', defaultMessage: 'Open Talks' });
 
   return (
     <List headerText={headerText}>

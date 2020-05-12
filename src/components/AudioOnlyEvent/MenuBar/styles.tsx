@@ -39,8 +39,6 @@ export const MenuButton = styled(({ handleToggle, ...rest }) => (
   </Hidden>
 ))`
   position: fixed;
-  background-color: ${props => props.theme.palette.primary.main};
-  color: white;
   z-index: 1;
   border-radius: 4px;
 `;
