@@ -9,7 +9,6 @@ import useJoinRoom from 'components/AudioOnlyEvent/hooks/useJoinRoom/useJoinRoom
 import RoomList from './RoomList/RoomList';
 import Hidden from '@material-ui/core/Hidden';
 import { Button, MobileDrawer, DesktopDrawer, StickyBottomContainer } from './styles';
-import RoomCreateButtons from './RoomCreateButtons/RoomCreateButtons';
 import { useLiveSupportContext } from 'components/LiveSupportProvider/LiveSupportProvider';
 
 const Sidebar = () => {
@@ -22,7 +21,6 @@ const Sidebar = () => {
 
   const drawer = (
     <>
-      <RoomCreateButtons />
       <RoomList
         rooms={roomsState.rooms}
         onRoomClick={joinRoom}
