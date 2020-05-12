@@ -19,6 +19,7 @@ export default function CreateConversation() {
     event.preventDefault();
 
     createConversation(roomName);
+    setRoomName('');
   };
 
   return (
