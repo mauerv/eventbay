@@ -1,6 +1,6 @@
 const getRouteWsClients = require('../util/getRouteWsClients');
 
-const broadcastRoomEvent = (name, event, wss) => {
+const broadcastRoomEvent = (name, event) => {
   const filteredClients = getRouteWsClients('/');
   filteredClients.forEach(ws => {
     ws.send(
@@ -17,7 +17,7 @@ const broadcastRoomEvent = (name, event, wss) => {
   });
 };
 
-const broadcastParticipantEvent = (name, event, wss) => {
+const broadcastParticipantEvent = (name, event) => {
   const filteredClients = getRouteWsClients('/');
   filteredClients.forEach(ws => {
     ws.send(

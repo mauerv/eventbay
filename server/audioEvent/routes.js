@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 const { twilioClient } = require('../twilio.js');
-const { expressWs } = require('../expressWs.js');
 const { broadcastRoomEvent, broadcastParticipantEvent } = require('./broadcastHelpers');
 
 router.get('/rooms', async (req, res) => {
@@ -35,23 +34,26 @@ router.post('/rooms', async (req, res) => {
 });
 
 router.post('/callback', async (req, res) => {
+  console.log('Callback was hit.');
+
   const eventName = req.body.StatusCallbackEvent;
   const eventData = req.body;
 
   switch (eventName) {
     case 'room-created':
+      console.log('Room created');
       const roomData = await twilioClient.video.rooms(eventData.RoomName).fetch();
       eventData.maxParticipants = roomData.maxParticipants;
-      broadcastRoomEvent(eventName, eventData, expressWs.getWss());
+      broadcastRoomEvent(eventName, eventData);
       break;
     case 'room-ended':
-      broadcastRoomEvent(eventName, eventData, expressWs.getWss());
+      broadcastRoomEvent(eventName, eventData);
       break;
     case 'participant-connected':
-      broadcastParticipantEvent(eventName, eventData, expressWs.getWss());
+      broadcastParticipantEvent(eventName, eventData);
       break;
     case 'participant-disconnected':
-      broadcastParticipantEvent(eventName, eventData, expressWs.getWss());
+      broadcastParticipantEvent(eventName, eventData);
       break;
     default:
       res.end();
