@@ -31,11 +31,11 @@ export default function Menu() {
         onClose={() => setMenuOpen(state => !state)}
         anchorEl={anchorRef.current}
       >
-        <MenuItem onClick={() => handleClick(leaveLobby)}>
-          <FormattedMessage id="sidebar.logoutBtn" defaultMessage="Logout" />
-        </MenuItem>
         <MenuItem onClick={() => handleClick(openSupportChat)}>
           <FormattedMessage id="sidebar.supportBtn" defaultMessage="Need Help?" />
+        </MenuItem>
+        <MenuItem onClick={() => handleClick(leaveLobby)}>
+          <FormattedMessage id="sidebar.logoutBtn" defaultMessage="Logout" />
         </MenuItem>
       </MenuContainer>
     </div>
