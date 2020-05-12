@@ -46,7 +46,6 @@ const AudioLobby = () => {
         <Sidebar />
       </Hidden>
       <Content>
-        <ConversationGrid />
         <ChatProvider>
           {content}
           <Controls />
