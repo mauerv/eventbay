@@ -7,14 +7,6 @@ export const Container = styled.div`
   height: calc(var(--vh) * 92);
 `;
 
-export const Left = styled.div`
-  width: 33%;
-`;
-
-export const Center = styled.div`
-  width: 33%;
-`;
-
-export const Right = styled.div`
-  width: 33%;
+export const Column = styled.div`
+  flex: 1;
 `;
