@@ -4,18 +4,22 @@ const { twilioClient } = require('../twilio.js');
 const { broadcastRoomEvent, broadcastParticipantEvent } = require('./broadcastHelpers');
 
 router.get('/rooms', async (req, res) => {
-  const rooms = await twilioClient.video.rooms.list({ limit: 20 });
-  const roomsWithParticipants = await Promise.all(
-    rooms.map(async room => {
-      let participants = await twilioClient.video
-        .rooms(room.uniqueName)
-        .participants.list({ status: 'connected' }, (err, participants) => participants);
-      room.participants = participants;
-      return room;
-    })
-  );
-  res.set('Content-Type', 'application/json');
-  res.send(roomsWithParticipants);
+  try {
+    const rooms = await twilioClient.video.rooms.list({ limit: 20 });
+    const roomsWithParticipants = await Promise.all(
+      rooms.map(async room => {
+        let participants = await twilioClient.video
+          .rooms(room.uniqueName)
+          .participants.list({ status: 'connected' }, (err, participants) => participants);
+        room.participants = participants;
+        return room;
+      })
+    );
+    res.set('Content-Type', 'application/json');
+    res.send(roomsWithParticipants);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 router.post('/rooms', async (req, res) => {
@@ -23,12 +27,16 @@ router.post('/rooms', async (req, res) => {
 
   let callbackUrl = `${process.env.API_TWILIO_CALLBACK_URL}/audio/callback`;
 
-  const room = await twilioClient.video.rooms.create({
-    uniqueName: roomName,
-    statusCallback: callbackUrl,
-    maxParticipants: 10,
-    type: 'peer-to-peer',
-  });
+  try {
+    const room = await twilioClient.video.rooms.create({
+      uniqueName: roomName,
+      statusCallback: callbackUrl,
+      maxParticipants: 10,
+      type: 'peer-to-peer',
+    });
+  } catch (error) {
+    console.log(error);
+  }
 
   res.send(roomName);
 });
