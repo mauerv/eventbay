@@ -4,7 +4,6 @@ import Hidden from '@material-ui/core/Hidden';
 import CreateConversation from './CreateConversation/CreateConversation';
 import useUIState from 'components/UIStateProvider/useUIState/useUIState';
 import Menu from './Menu/Menu';
-
 import { AppBar, RightButtonContainer, Toolbar, MenuButton } from './styles';
 
 export default function MenuBar() {
