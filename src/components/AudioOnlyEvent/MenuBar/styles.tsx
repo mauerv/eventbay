@@ -1,6 +1,11 @@
+import React from 'react';
 import styled from 'styled-components';
 import MUIAppBar from '@material-ui/core/AppBar';
+import Hidden from '@material-ui/core/Hidden';
 import MUIToolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+
 export const AppBar = styled(MUIAppBar).attrs({ position: 'static' })`
   background-color: ${props => props.theme.palette.background.default};
 `;
@@ -24,4 +29,18 @@ export const Form = styled.form`
   @media (min-width: 960px) {
     magin-leftt: 2.2em;
   }
+`;
+
+export const MenuButton = styled(({ handleToggle, ...rest }) => (
+  <Hidden mdUp>
+    <IconButton edge="start" onClick={handleToggle} {...rest}>
+      <MenuIcon />
+    </IconButton>
+  </Hidden>
+))`
+  position: fixed;
+  background-color: ${props => props.theme.palette.primary.main};
+  color: white;
+  z-index: 1;
+  border-radius: 4px;
 `;

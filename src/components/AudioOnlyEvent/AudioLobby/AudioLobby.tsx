@@ -16,6 +16,8 @@ import ConversationGrid from 'components/ConversationGrid/ConversationGrid';
 import useRoomState from 'hooks/useRoomState/useRoomState';
 import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 import { useAppState } from 'state';
+import Sidebar from 'components/AudioOnlyEvent/Sidebar/Sidebar';
+import Hidden from '@material-ui/core/Hidden';
 
 const AudioLobby = () => {
   const roomState = useRoomState();
@@ -40,9 +42,11 @@ const AudioLobby = () => {
   return (
     <RoomsProvider>
       <MenuBar />
+      <Hidden smUp>
+        <Sidebar />
+      </Hidden>
       <Content>
         <ConversationGrid />
-
         <ChatProvider>
           {content}
           <Controls />
