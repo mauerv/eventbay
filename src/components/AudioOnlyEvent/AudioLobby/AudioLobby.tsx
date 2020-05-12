@@ -3,7 +3,6 @@ import { Redirect } from 'react-router-dom';
 import { hot } from 'react-hot-loader';
 
 import MenuBar from '../MenuBar/MenuBar';
-import Sidebar from 'components/AudioOnlyEvent/Sidebar/Sidebar';
 import Controls from 'components/AudioOnlyEvent/Controls/Controls';
 import LocalAudioPreview from 'components/AudioOnlyEvent/LocalAudioPreview/LocalAudioPreview';
 import ReconnectingNotification from 'components/ReconnectingNotification/ReconnectingNotification';
@@ -12,8 +11,8 @@ import RoomsProvider from 'components/RoomsProvider/RoomsProvider';
 import MediaDevicesDialog from 'components/MediaDevicesDialog/MediaDevicesDialog';
 import ChatProvider from 'components/ChatProvider/ChatProvider';
 import AudioContextProvider from 'components/AudioContextProvider/AudioContextProvider';
-import { Main } from './styles';
-
+import { Content } from './styles';
+import ConversationGrid from 'components/ConversationGrid/ConversationGrid';
 import useRoomState from 'hooks/useRoomState/useRoomState';
 import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 import { useAppState } from 'state';
@@ -39,20 +38,19 @@ const AudioLobby = () => {
   }
 
   return (
-    <>
-      <RoomsProvider>
-        <MenuBar />
-        <Sidebar />
-      </RoomsProvider>
-      <Main>
+    <RoomsProvider>
+      <MenuBar />
+      <Content>
+        <ConversationGrid />
+
         <ChatProvider>
           {content}
           <Controls />
         </ChatProvider>
-      </Main>
-      <ReconnectingNotification />
-      <MediaDevicesDialog />
-    </>
+        <ReconnectingNotification />
+        <MediaDevicesDialog />
+      </Content>
+    </RoomsProvider>
   );
 };
 

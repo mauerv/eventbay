@@ -5,6 +5,8 @@ import { useAppState } from 'state';
 import useRoomState from 'hooks/useRoomState/useRoomState';
 import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 import useCreateConversation from '../hooks/useCreateConversation/useCreateConversation';
+import Hidden from '@material-ui/core/Hidden';
+
 import {
   AppBar,
   RightButtonContainer,
@@ -60,9 +62,11 @@ export default function MenuBar() {
         ) : (
           <h3>{roomName}</h3>
         )}
-        <RightButtonContainer>
-          <ToggleFullscreenButton />
-        </RightButtonContainer>
+        <Hidden mdDown>
+          <RightButtonContainer>
+            <ToggleFullscreenButton />
+          </RightButtonContainer>
+        </Hidden>
       </Toolbar>
     </AppBar>
   );
