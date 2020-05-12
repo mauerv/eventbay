@@ -10,8 +10,10 @@ export default function MenuBar() {
   return (
     <AppBar>
       <Toolbar>
-        <CreateConversation />
-        <Hidden mdDown>
+        <Hidden xsDown>
+          <CreateConversation />
+        </Hidden>
+        <Hidden smDown>
           <RightButtonContainer>
             <ToggleFullscreenButton />
           </RightButtonContainer>
