@@ -4,7 +4,7 @@ import { hot } from 'react-hot-loader';
 
 import MenuBar from '../MenuBar/MenuBar';
 import Controls from 'components/AudioOnlyEvent/Controls/Controls';
-import LocalAudioPreview from 'components/AudioOnlyEvent/LocalAudioPreview/LocalAudioPreview';
+import ConversationGrid from 'components/AudioOnlyEvent/ConversationGrid/ConversationGrid';
 import ReconnectingNotification from 'components/ReconnectingNotification/ReconnectingNotification';
 import AudioRoom from 'components/AudioOnlyEvent/AudioRoom/AudioRoom';
 import RoomsProvider from 'components/RoomsProvider/RoomsProvider';
@@ -12,7 +12,6 @@ import MediaDevicesDialog from 'components/MediaDevicesDialog/MediaDevicesDialog
 import ChatProvider from 'components/ChatProvider/ChatProvider';
 import AudioContextProvider from 'components/AudioContextProvider/AudioContextProvider';
 import { Content } from './styles';
-import ConversationGrid from 'components/ConversationGrid/ConversationGrid';
 import useRoomState from 'hooks/useRoomState/useRoomState';
 import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 import { useAppState } from 'state';
@@ -28,7 +27,7 @@ const AudioLobby = () => {
   if (!nick) return <Redirect to="/" />;
 
   if (roomState === 'disconnected' && !isConnecting) {
-    content = <LocalAudioPreview />;
+    content = <ConversationGrid />;
   } else if (roomState === 'disconnected') {
     content = null;
   } else {
