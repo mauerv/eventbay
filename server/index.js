@@ -14,7 +14,7 @@ app.use(secure);
 app.use(compression());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, '..', 'build')));
 
 app.use('/video', videoRoutes);
 app.use('/audio', audioRoutes);
