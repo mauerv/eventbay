@@ -7,7 +7,7 @@ import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 
 export default function CreateConversation() {
   const { nick, isFetching } = useAppState();
-  const { createConversation } = useCreateConversation();
+  const { createConversation, canCreateConversation } = useCreateConversation();
   const { isConnecting } = useMediaContext();
 
   const [roomName, setRoomName] = useState('');
@@ -26,7 +26,7 @@ export default function CreateConversation() {
     <Form onSubmit={handleSubmit}>
       <TextField
         id="menu-room"
-        label="Topic"
+        label="Lets talk about..."
         value={roomName}
         onChange={handleRoomNameChange}
         margin="dense"
@@ -35,7 +35,7 @@ export default function CreateConversation() {
         type="submit"
         color="primary"
         variant="contained"
-        disabled={isConnecting || !nick || !roomName || isFetching}
+        disabled={!canCreateConversation || !roomName}
       >
         Start Conversation
       </JoinButton>
