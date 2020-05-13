@@ -2,7 +2,6 @@ import React from 'react';
 
 import ConversationGridItem from './ConversationGridItem/ConversationGridItem';
 import useRooms from 'components/RoomsProvider/useRooms/useRooms';
-import fakedata from './fakedata.json';
 import { StyledMasonry } from './styles';
 
 const breakpointCols = {
@@ -21,8 +20,8 @@ export default function ConversationGrid() {
       className="masonry-grid"
       columnClassName="masonry-grid_column"
     >
-      {fakedata.rooms &&
-        fakedata.rooms.map((roomItem: any) => <ConversationGridItem room={roomItem} />)}
+      {roomsState.rooms &&
+        roomsState.rooms.map((roomItem: any) => <ConversationGridItem room={roomItem} />)}
     </StyledMasonry>
   );
 }
