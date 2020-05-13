@@ -8,7 +8,7 @@ export const Form = styled.form`
   flex-wrap: wrap;
   align-items: center;
   @media (min-width: 960px) {
-    magin-leftt: 2.2em;
+    magin-left: 2.2em;
   }
 `;
 
@@ -18,7 +18,7 @@ export const TextField = styled(MUITextField)`
 `;
 
 export const JoinButton = styled(Button)`
-  marrgin: 1em;
+  margin: 1em;
 `;
 
 export const LoadingSpinner = styled(CircularProgress)`

@@ -3,10 +3,9 @@ import Masonry from 'react-masonry-css';
 
 export const StyledMasonry = styled(Masonry)`
   display: flex;
-  height: calc(var(--vh) * 89);
-  overflow: scroll;
+  height: calc(var(--vh) * 90);
+  padding-top: calc(var(--vh) * 2);
   margin-left: ${props => props.theme.spacing(2)}px;
-  margin-top: calc(var(--vh) * 2);
   width: auto;
   & .masonry-grid_column {
     padding-left: ${props => props.theme.spacing(2)}px;

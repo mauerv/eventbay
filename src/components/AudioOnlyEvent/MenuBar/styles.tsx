@@ -17,9 +17,9 @@ export const RightButtonContainer = styled.div`
 `;
 
 export const Toolbar = styled(MUIToolbar)`
+  height: calc(var(--vh) * 8);
   @media (max-width: 480px) {
     padding: 0;
-    height: calc(var(--vh) * 8);
   }
 `;
 

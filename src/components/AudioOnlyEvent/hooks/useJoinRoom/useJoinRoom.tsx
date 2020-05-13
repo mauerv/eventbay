@@ -17,7 +17,8 @@ export default function useJoinRoom() {
 
     if (roomState === 'connected') {
       room.disconnect();
-      logEvent('ROOM_SWITCH');
+
+      logEvent('ROOM_SWITCHs');
     } else {
       logEvent('ROOM_JOIN');
     }
