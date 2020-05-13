@@ -13,13 +13,14 @@ export default function useJoinRoom() {
 
   const joinRoom = async (roomName: string) => {
     if (!canJoinRooms) return;
+    const token = await getToken(nick, roomName);
+
     if (roomState === 'connected') {
       room.disconnect();
       logEvent('ROOM_SWITCH');
     } else {
       logEvent('ROOM_JOIN');
     }
-    const token = await getToken(nick, roomName);
     connect(token);
   };
 
