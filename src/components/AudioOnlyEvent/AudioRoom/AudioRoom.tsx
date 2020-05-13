@@ -4,7 +4,7 @@ import useParticipants from 'hooks/useParticipants/useParticipants';
 import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 import Chat from 'components/AudioOnlyEvent/Chat/Chat';
 import AudioParticipant from './AudioParticipant/AudioParticipant';
-import { Container, Column } from './styles';
+import { Container, Left, Center, Right } from './styles';
 import ConversationGrid from 'components/ConversationGrid/ConversationGrid';
 import Hidden from '@material-ui/core/Hidden';
 
@@ -17,20 +17,18 @@ export default function AudioRoom() {
   return (
     <Container>
       <Hidden xsDown>
-        <Column>
+        <Left>
           <ConversationGrid />
-        </Column>
+        </Left>
       </Hidden>
-      <Column>
+      <Center>
         {[localParticipant, ...participants].map(participant => (
           <AudioParticipant key={participant.sid} participant={participant} />
         ))}
-      </Column>
-      <Hidden mdDown>
-        <Column>
-          <Chat />
-        </Column>
-      </Hidden>
+      </Center>
+      <Right>
+        <Chat />
+      </Right>
     </Container>
   );
 }

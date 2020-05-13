@@ -7,6 +7,27 @@ export const Container = styled.div`
   height: calc(var(--vh) * 92);
 `;
 
-export const Column = styled.div`
-  flex: 1;
+export const Left = styled.div`
+  ${props => props.theme.breakpoints.up('sm')} {
+    width: 50%;
+  }
+  ${props => props.theme.breakpoints.up('md')} {
+    width: 33%;
+  }
+`;
+
+export const Center = styled.div`
+  width: 100%;
+  ${props => props.theme.breakpoints.up('sm')} {
+    width: 50%;
+  }
+  ${props => props.theme.breakpoints.up('md')} {
+    width: 33%;
+  }
+`;
+
+export const Right = styled.div`
+  ${props => props.theme.breakpoints.up('md')} {
+    width: 33%;
+  }
 `;
