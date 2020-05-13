@@ -1,31 +1,28 @@
 import React from 'react';
-import { RoomInstance } from 'twilio';
 
 import useFormatMessage from 'hooks/useFormatMessage/useFormatMessage';
-import { Callback } from 'types';
 import RoomListItem from '../RoomListItem/RoomListItem';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
+import useRooms from 'components/RoomsProvider/useRooms/useRooms';
+import useJoinRoom from 'components/AudioOnlyEvent/hooks/useJoinRoom/useJoinRoom';
 import { List } from './styles';
 
-type Props = {
-  rooms: RoomInstance[];
-  onRoomClick: Callback;
-  activeRoom: string;
-  canJoinRoom: boolean;
-};
-
-export default function RoomList({ rooms, onRoomClick, activeRoom, canJoinRoom }: Props) {
+export default function RoomList() {
   const headerText = useFormatMessage({ id: 'roomlist.headerText', defaultMessage: 'Open Talks' });
+  const { room } = useMediaContext();
+  const { roomsState } = useRooms();
+  const { canJoinRooms, joinRoom } = useJoinRoom();
 
   return (
     <List headerText={headerText}>
-      {rooms &&
-        rooms.map(room => (
+      {roomsState.rooms &&
+        roomsState.rooms.map((roomItem: any) => (
           <RoomListItem
-            key={room.sid}
-            room={room}
-            onRoomClick={onRoomClick}
-            selected={activeRoom === room.uniqueName}
-            disabled={!canJoinRoom}
+            key={roomItem.sid}
+            room={roomItem}
+            onRoomClick={joinRoom}
+            selected={room.name === roomItem.uniqueName}
+            disabled={!canJoinRooms}
           />
         ))}
     </List>

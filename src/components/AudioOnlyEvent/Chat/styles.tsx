@@ -31,10 +31,13 @@ export const ChatFixed = styled.div`
 
 export const SendMessageContainer = styled.div`
   position: fixed;
-  width: 33%;
   bottom: 0;
   right: 0;
   background-color: ${props => props.theme.palette.background.default};
+  width: 100%;
+  ${props => props.theme.breakpoints.up('md')} {
+    width: 33%;
+  }
 `;
 
 export const Form = styled.form`

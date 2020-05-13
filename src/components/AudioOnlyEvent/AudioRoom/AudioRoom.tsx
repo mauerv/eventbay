@@ -5,7 +5,7 @@ import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 import Chat from 'components/AudioOnlyEvent/Chat/Chat';
 import AudioParticipant from './AudioParticipant/AudioParticipant';
 import { Container, Left, Center, Right } from './styles';
-import ConversationGrid from 'components/ConversationGrid/ConversationGrid';
+import RoomList from 'components/AudioOnlyEvent/Sidebar/RoomList/RoomList';
 import Hidden from '@material-ui/core/Hidden';
 
 export default function AudioRoom() {
@@ -18,7 +18,7 @@ export default function AudioRoom() {
     <Container>
       <Hidden xsDown>
         <Left>
-          <ConversationGrid />
+          <RoomList />
         </Left>
       </Hidden>
       <Center>
