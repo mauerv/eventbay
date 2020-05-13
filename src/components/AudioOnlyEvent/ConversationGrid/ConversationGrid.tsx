@@ -1,5 +1,6 @@
 import React from 'react';
 
+import ConversationGridItem from './ConversationGridItem/ConversationGridItem';
 import useRooms from 'components/RoomsProvider/useRooms/useRooms';
 import fakedata from './fakedata.json';
 import { StyledMasonry } from './styles';
@@ -21,14 +22,7 @@ export default function ConversationGrid() {
       columnClassName="masonry-grid_column"
     >
       {fakedata.rooms &&
-        fakedata.rooms.map((roomItem: any) => (
-          <div>
-            <p>{roomItem.uniqueName}</p>
-            {roomItem.participants.map((participant: any) => (
-              <p>{participant.identity}</p>
-            ))}
-          </div>
-        ))}
+        fakedata.rooms.map((roomItem: any) => <ConversationGridItem room={roomItem} />)}
     </StyledMasonry>
   );
 }

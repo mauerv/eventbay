@@ -3,17 +3,18 @@ import Masonry from 'react-masonry-css';
 
 export const StyledMasonry = styled(Masonry)`
   display: flex;
-  height: calc(var(--vh) * 92);
+  height: calc(var(--vh) * 89);
   overflow: scroll;
-  margin-left: -30px; /* gutter size offset */
+  margin-left: ${props => props.theme.spacing(2)}px;
+  margin-top: calc(var(--vh) * 2);
   width: auto;
   & .masonry-grid_column {
-    padding-left: 30px; /* gutter size */
+    padding-left: ${props => props.theme.spacing(2)}px;
     background-clip: padding-box;
   }
   & .masonry-grid_column > div {
     display: flex;
     flex-direction: column;
-    border: 2px solid black;
+    margin-bottom: ${props => props.theme.spacing(2)}px;
   }
 `;
