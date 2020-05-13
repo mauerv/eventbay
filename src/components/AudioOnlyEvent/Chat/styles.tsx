@@ -35,6 +35,9 @@ export const SendMessageContainer = styled.div`
   right: 0;
   background-color: ${props => props.theme.palette.background.default};
   width: 100%;
+  ${props => props.theme.breakpoints.up('sm')} {
+    width: ${chatDrawerWidth};
+  }
   ${props => props.theme.breakpoints.up('md')} {
     width: 33%;
   }
