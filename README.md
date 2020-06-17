@@ -1,5 +1,5 @@
 # EventBay
-Run events that you can't run in any other platform. Multi-threaded by default, you complete autonomy for users.
+Run events that you can't run in any other platform. Multi-threaded by default, with complete autonomy for the assistants.
 
 # Setup
 
