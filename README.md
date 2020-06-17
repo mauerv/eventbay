@@ -1,3 +1,6 @@
+# EventBay
+Run events that you can't run in any other platform. Multi-threaded by default, you complete autonomy for users.
+
 # Setup
 
 - You need to create a .env file at the root of the project and fill the following enviroment variables:
