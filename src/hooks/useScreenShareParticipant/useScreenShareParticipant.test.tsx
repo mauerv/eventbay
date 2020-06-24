@@ -1,11 +1,11 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 import { EventEmitter } from 'events';
 import useScreenShareParticipant from './useScreenShareParticipant';
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 
-jest.mock('hooks/useVideoContext/useVideoContext');
+jest.mock('hooks/useMediaContext/useMediaContext');
 
-const mockUseVideoContext = useVideoContext as jest.Mock<any>;
+const mockuseMediaContext = useMediaContext as jest.Mock<any>;
 
 function MockRoom() {
   const mockRoom = new EventEmitter() as any;
@@ -18,7 +18,7 @@ function MockRoom() {
   return mockRoom;
 }
 
-mockUseVideoContext.mockImplementation(() => ({
+mockuseMediaContext.mockImplementation(() => ({
   room: MockRoom(),
   onError: () => {},
 }));
@@ -32,7 +32,7 @@ describe('the useScreenShareParticipant hook', () => {
   it('should return the localParticipant when they are sharing their screen', () => {
     const mockRoom = MockRoom();
     mockRoom.localParticipant.tracks = new Map([[0, { trackName: 'screen' }]]);
-    mockUseVideoContext.mockImplementation(() => ({
+    mockuseMediaContext.mockImplementation(() => ({
       room: mockRoom,
       onError: () => {},
     }));
@@ -47,7 +47,7 @@ describe('the useScreenShareParticipant hook', () => {
       tracks: new Map([[0, { trackName: 'screen' }]]),
     };
     mockRoom.participants = new Map([[0, mockParticipant]]);
-    mockUseVideoContext.mockImplementation(() => ({
+    mockuseMediaContext.mockImplementation(() => ({
       room: mockRoom,
       onError: () => {},
     }));
@@ -58,7 +58,7 @@ describe('the useScreenShareParticipant hook', () => {
 
   it('should respond to "trackPublished" and "trackUnpublished" events emitted from the localParticipant', () => {
     const mockRoom = MockRoom();
-    mockUseVideoContext.mockImplementation(() => ({
+    mockuseMediaContext.mockImplementation(() => ({
       room: mockRoom,
       onError: () => {},
     }));
@@ -86,7 +86,7 @@ describe('the useScreenShareParticipant hook', () => {
     const mockParticipant = {
       tracks: new Map([[0, { trackName: 'screen' }]]),
     };
-    mockUseVideoContext.mockImplementation(() => ({
+    mockuseMediaContext.mockImplementation(() => ({
       room: mockRoom,
       onError: () => {},
     }));
@@ -116,7 +116,7 @@ describe('the useScreenShareParticipant hook', () => {
     };
     mockRoom.participants = new Map([[0, mockParticipant]]);
 
-    mockUseVideoContext.mockImplementation(() => ({
+    mockuseMediaContext.mockImplementation(() => ({
       room: mockRoom,
     }));
 
@@ -134,7 +134,7 @@ describe('the useScreenShareParticipant hook', () => {
   it('should clean up all listeners when unmounted', () => {
     const mockRoom = MockRoom();
 
-    mockUseVideoContext.mockImplementation(() => ({
+    mockuseMediaContext.mockImplementation(() => ({
       room: mockRoom,
       onError: () => {},
     }));

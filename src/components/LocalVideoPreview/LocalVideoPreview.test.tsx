@@ -7,14 +7,14 @@ import { StylesProvider } from '@material-ui/core/styles';
 
 import LocalVideoPreview from './LocalVideoPreview';
 import { IVideoContext } from 'components/VideoProvider';
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 import theme from 'theme';
 
-jest.mock('hooks/useVideoContext/useVideoContext');
+jest.mock('hooks/useMediaContext/useMediaContext');
 jest.mock('components/UIStateProvider/useUIState/useUIState', () => () => jest.fn());
 jest.mock('hooks/useMediaDevices/useMediaDevices', () => () => jest.fn());
 
-const mockedVideoContext = useVideoContext as jest.Mock<IVideoContext>;
+const mockedVideoContext = useMediaContext as jest.Mock<IVideoContext>;
 
 const setup = () => {
   return mount(

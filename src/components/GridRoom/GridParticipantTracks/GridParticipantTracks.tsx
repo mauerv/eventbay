@@ -3,7 +3,7 @@ import { LocalParticipant, RemoteParticipant, Track } from 'twilio-video';
 
 import Publication from 'components/Publication/Publication';
 import usePublications from 'hooks/usePublications/usePublications';
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 
 type Props = {
   participant: LocalParticipant | RemoteParticipant;
@@ -18,7 +18,7 @@ export default function GridParticipantTracks({
   enableScreenShare,
   videoPriority,
 }: Props) {
-  const { room } = useVideoContext();
+  const { room } = useMediaContext();
   const publications = usePublications(participant);
   const isLocal = participant === room.localParticipant;
 

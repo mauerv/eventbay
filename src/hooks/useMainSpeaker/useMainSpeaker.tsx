@@ -1,4 +1,4 @@
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 import useDominantSpeaker from 'hooks/useDominantSpeaker/useDominantSpeaker';
 import useParticipants from 'hooks/useParticipants/useParticipants';
 import useScreenShareParticipant from 'hooks/useScreenShareParticipant/useScreenShareParticipant';
@@ -11,7 +11,7 @@ export default function useMainSpeaker() {
   const participants = useParticipants();
   const {
     room: { localParticipant },
-  } = useVideoContext();
+  } = useMediaContext();
 
   // The participant that is returned is displayed in the main video area. Changing the order of the following
   // variables will change the how the main speaker is determined.

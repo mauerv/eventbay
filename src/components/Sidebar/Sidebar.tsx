@@ -2,7 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import useUIState from 'components/UIStateProvider/useUIState/useUIState';
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 import useRooms from 'components/RoomsProvider/useRooms/useRooms';
 import useLeaveLobby from 'hooks/useLeaveLobby/useLeaveLobby';
 import useJoinRoom from 'hooks/useJoinRoom/useJoinRoom';
@@ -11,21 +11,19 @@ import Collapse from '@material-ui/core/Collapse';
 import Hidden from '@material-ui/core/Hidden';
 import { Button, MobileDrawer, DesktopDrawer, MenuButton, StickyBottomContainer } from './styles';
 import RoomCreateButtons from './RoomCreateButtons/RoomCreateButtons';
-import useCreateRoom from 'hooks/useCreateRoom/useCreateRoom';
 import { useLiveSupportContext } from 'components/LiveSupportProvider/LiveSupportProvider';
 
 const Sidebar = () => {
-  const { room } = useVideoContext();
+  const { room } = useMediaContext();
   const { showMobileUi, showMobileSidebar, toggleMobileSidebar } = useUIState();
   const { roomsState } = useRooms();
   const leaveLobby = useLeaveLobby();
   const { canJoinRooms, joinRoom } = useJoinRoom();
-  const { canCreateRoom, createRoom } = useCreateRoom();
   const { openSupportChat } = useLiveSupportContext();
 
   const drawer = (
     <>
-      <RoomCreateButtons handleCreateRoom={createRoom} canCreateRoom={canCreateRoom} />
+      <RoomCreateButtons />
       <RoomList
         rooms={roomsState.rooms}
         onRoomClick={joinRoom}

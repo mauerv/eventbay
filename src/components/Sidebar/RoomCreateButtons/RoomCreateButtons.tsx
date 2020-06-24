@@ -1,23 +1,20 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Callback } from 'types';
+
 import { Button } from '../styles';
+import useCreateRoom from 'hooks/useCreateRoom/useCreateRoom';
 
-type Props = {
-  handleCreateRoom: Callback;
-  canCreateRoom: boolean;
-};
-
-export default function RoomCreateButtons({ handleCreateRoom, canCreateRoom }: Props) {
+export default function RoomCreateButtons() {
+  const { canCreateRoom, createRoom } = useCreateRoom();
   return (
     <>
-      <Button onClick={() => handleCreateRoom('video-group-large')} disabled={!canCreateRoom}>
+      <Button onClick={() => createRoom('video-group-large')} disabled={!canCreateRoom}>
         <FormattedMessage id="sidebar.createGroupLargeBtn" defaultMessage="Create Large Room" />
       </Button>
-      <Button onClick={() => handleCreateRoom('video-p2p')} disabled={!canCreateRoom}>
+      <Button onClick={() => createRoom('video-p2p')} disabled={!canCreateRoom}>
         <FormattedMessage id="sidebar.createGroupSmallBtn" defaultMessage="Create Small Room" />
       </Button>
-      <Button onClick={() => handleCreateRoom('audio-p2p')} disabled={!canCreateRoom}>
+      <Button onClick={() => createRoom('audio-p2p')} disabled={!canCreateRoom}>
         <FormattedMessage id="sidebar.createAudioP2pBtn" defaultMessage="Create Audio Room" />
       </Button>
     </>

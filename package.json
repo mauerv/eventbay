@@ -41,6 +41,7 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-intl": "^4.3.1",
+    "react-masonry-css": "^1.0.14",
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.3.1",
     "rollbar": "^2.15.2",
@@ -88,8 +89,8 @@
     "test": "jest --watch --modulePaths=src",
     "eject": "react-app-rewired eject",
     "lint": "eslint src/**/*.{ts,tsx}",
-    "server": "node server.js",
-    "server-dev": "nodemon server.sj",
+    "server": "node server/index.js",
+    "server-dev": "nodemon server/index.js",
     "test:ci": "jest --ci --runInBand --reporters=default --reporters=jest-junit --coverage",
     "deploy:twilio-cli": "cross-env REACT_APP_SET_AUTH=passcode npm run build && twilio rtc:apps:video:deploy --authentication=passcode --app-directory ./build"
   },

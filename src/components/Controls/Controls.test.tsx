@@ -4,16 +4,16 @@ import { shallow } from 'enzyme';
 import Controls from './Controls';
 import useIsUserActive from './useIsUserActive/useIsUserActive';
 import useRoomState from 'hooks/useRoomState/useRoomState';
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 
 jest.mock('./useIsUserActive/useIsUserActive');
 jest.mock('hooks/useRoomState/useRoomState');
-jest.mock('hooks/useVideoContext/useVideoContext');
+jest.mock('hooks/useMediaContext/useMediaContext');
 
 const mockIsUserActive = useIsUserActive as jest.Mock<boolean>;
 const mockUseRoomState = useRoomState as jest.Mock<any>;
-const mockUseVideoContext = useVideoContext as jest.Mock<any>;
-mockUseVideoContext.mockImplementation(() => ({ roomType: 'video-group-large' }));
+const mockuseMediaContext = useMediaContext as jest.Mock<any>;
+mockuseMediaContext.mockImplementation(() => ({ roomType: 'video-group-large' }));
 
 describe('the Controls component', () => {
   describe('when the user is active', () => {
@@ -42,7 +42,7 @@ describe('the Controls component', () => {
 
     it('should render the ToggleScreenShare button when connected to a large room', () => {
       mockUseRoomState.mockImplementation(() => 'connected');
-      mockUseVideoContext.mockImplementationOnce(() => ({ roomType: 'video-group-large' }));
+      mockuseMediaContext.mockImplementationOnce(() => ({ roomType: 'video-group-large' }));
       const wrapper = shallow(<Controls />);
       expect(wrapper.find('ToggleScreenShareButton').exists()).toBe(true);
       expect(wrapper.find('EndCallButton').exists()).toBe(true);
@@ -51,7 +51,7 @@ describe('the Controls component', () => {
 
     it('should not render the ToggleScreenShare and ToggleVideo button when connected to an audio room', () => {
       mockUseRoomState.mockImplementation(() => 'connected');
-      mockUseVideoContext.mockImplementationOnce(() => ({ roomType: 'audio-p2p' }));
+      mockuseMediaContext.mockImplementationOnce(() => ({ roomType: 'audio-p2p' }));
       const wrapper = shallow(<Controls />);
       expect(wrapper.find('ToggleScreenShareButton').exists()).toBe(false);
       expect(wrapper.find('ToggleVideoButton').exists()).toBe(false);

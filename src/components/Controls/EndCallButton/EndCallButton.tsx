@@ -6,7 +6,7 @@ import CallEnd from '@material-ui/icons/CallEnd';
 import Tooltip from '@material-ui/core/Tooltip';
 import MUIFab from '@material-ui/core/Fab';
 
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 import useAnalytics from 'hooks/useAnalytics/useAnalytics';
 
 export const Fab = styled(MUIFab)`
@@ -17,7 +17,7 @@ export const Fab = styled(MUIFab)`
 `;
 
 export default function EndCallButton() {
-  const { room, setRoomType } = useVideoContext();
+  const { room, setRoomType } = useMediaContext();
   const { logEvent } = useAnalytics();
 
   const handleClick = () => {

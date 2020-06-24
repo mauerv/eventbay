@@ -1,12 +1,12 @@
 import { renderHook, act } from '@testing-library/react-hooks';
 import useScreenShareToggle from './useScreenShareToggle';
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 import { EventEmitter } from 'events';
 
 jest.mock('hooks/useAnalytics/useAnalytics', () => () => ({ logEvent: jest.fn() }));
-jest.mock('hooks/useVideoContext/useVideoContext');
+jest.mock('hooks/useMediaContext/useMediaContext');
 
-const mockedVideoContext = useVideoContext as jest.Mock<any>;
+const mockedVideoContext = useMediaContext as jest.Mock<any>;
 
 const mockLocalParticipant = new EventEmitter() as any;
 mockLocalParticipant.publishTrack = jest.fn(() => Promise.resolve('mockPublication'));

@@ -1,12 +1,12 @@
 import useAnalytics from 'hooks/useAnalytics/useAnalytics';
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 import useRoomState from 'hooks/useRoomState/useRoomState';
 import useCanJoinRooms from './useCanJoinRooms/useCanJoinRooms';
 import { useAppState } from 'state';
 import { RoomType } from 'types';
 
 export default function useJoinRoom() {
-  const { room, setRoomType, connect } = useVideoContext();
+  const { room, setRoomType, connect } = useMediaContext();
   const { nick, getToken } = useAppState();
   const { logEvent } = useAnalytics();
   const roomState = useRoomState();

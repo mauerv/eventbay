@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 
 import { Participant, TrackPublication } from 'twilio-video';
 
@@ -8,7 +8,7 @@ import { Participant, TrackPublication } from 'twilio-video';
   can share their screen at a time.
 */
 export default function useScreenShareParticipant() {
-  const { room } = useVideoContext();
+  const { room } = useMediaContext();
   const [screenShareParticipant, setScreenShareParticipant] = useState<Participant>();
 
   useEffect(() => {

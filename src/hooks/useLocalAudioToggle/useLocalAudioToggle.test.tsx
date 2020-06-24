@@ -1,9 +1,9 @@
 import { renderHook } from '@testing-library/react-hooks';
 import useLocalAudioToggle from './useLocalAudioToggle';
-import useVideoContext from 'hooks/useVideoContext/useVideoContext';
+import useMediaContext from 'hooks/useMediaContext/useMediaContext';
 
-jest.mock('hooks/useVideoContext/useVideoContext');
-const mockUseVideoContext = useVideoContext as jest.Mock<any>;
+jest.mock('hooks/useMediaContext/useMediaContext');
+const mockuseMediaContext = useMediaContext as jest.Mock<any>;
 
 jest.mock('hooks/useIsTrackEnabled/useIsTrackEnabled', () => () => true);
 
@@ -16,7 +16,7 @@ describe('the useLocalAudioToggle hook', () => {
       disable: jest.fn(),
     };
 
-    mockUseVideoContext.mockImplementation(() => ({
+    mockuseMediaContext.mockImplementation(() => ({
       localTracks: [mockLocalTrack],
     }));
 
@@ -33,7 +33,7 @@ describe('the useLocalAudioToggle hook', () => {
         disable: jest.fn(),
       };
 
-      mockUseVideoContext.mockImplementation(() => ({
+      mockuseMediaContext.mockImplementation(() => ({
         localTracks: [mockLocalTrack],
       }));
 
@@ -51,7 +51,7 @@ describe('the useLocalAudioToggle hook', () => {
         disable: jest.fn(),
       };
 
-      mockUseVideoContext.mockImplementation(() => ({
+      mockuseMediaContext.mockImplementation(() => ({
         localTracks: [mockLocalTrack],
       }));
 
@@ -62,7 +62,7 @@ describe('the useLocalAudioToggle hook', () => {
     });
 
     it('should not throw an error if track is undefined', () => {
-      mockUseVideoContext.mockImplementation(() => ({
+      mockuseMediaContext.mockImplementation(() => ({
         localTracks: [],
       }));
 
